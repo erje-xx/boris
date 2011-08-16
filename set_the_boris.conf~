@@ -1,0 +1,38 @@
+PARAMETERS
+# For large values, use scientific notation, i.e. 3.0e-6
+# for 3 x 10^6
+##########
+# Saturation magnetization, Gauss
+SATURATION_MAGNETIZATION=1750
+
+# External field, Oersteads
+EXTERNAL_FIELD =1964
+
+# Film thickness, meters
+FILM_THICKNESS= 0.51e-6
+
+# Film-inplane dimensions for square, step size, meters
+FILM_WIDTH = 1.3e-3
+
+# Gyromagnetic ratio, Hz/Oe
+GYROMAGNETIC_RATIO = 2.8e6
+
+# Exchange constant, m^2
+EXCHANGE_CONSTANT= 3.1e-16
+
+# In-plane angle, degrees
+PHI = 0.0
+
+# Angle between film normal and Ms, degrees
+# For clarity, THETA = 90.0 corresponds to 
+# Ms lying in-plane
+# THETA = 90.0 with PHI = 0.0 -> BVMSW
+# THETA = 90.0 with PHI = 90.0 -> Damon-Eshbach
+THETA = 90.0
+
+# Number of nodes, number of steps of in-plane wavevector
+NODE_NUMBER = 100.0
+
+##########
+OPTIONS
+##########
