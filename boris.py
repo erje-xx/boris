@@ -518,32 +518,31 @@ def omega_n(kzeta, phi, Ms, H, d, gamma, alpha, theta, n):
 	if kzeta == 0.0:
 		return math.sqrt(wh*(wh + wm))
 	
-	kz = kzeta*math.cos(phi)
-	ky = kzeta*math.sin(phi)
 	kappa_n = n*pi/d
 	kn = math.sqrt(kzeta**2 + kappa_n**2)
+	Q = (wh + alpha*wm*kn*kn)
 	
 	# Fn, same for totally unpinned and totally pinned cases
 	Fn = (2/(kzeta*d))*(1 - ((-1)**n)*math.exp(-kzeta*d))
 
 	# Pnn, totally UNPINNED surface spins
 	if n == 0:
-		Pnn = kzeta**2/(kn**2) - (kzeta**4/(kn**4))*Fn/2
 		B = 0.5
 	else:
-		Pnn = kzeta**2/(kn**2) - (kzeta**4/(kn**4))*Fn
 		B = 1
 	
-	Fnn = Pnn + math.sin(theta)*math.sin(theta)*(1 - Pnn*(1 + math.cos(phi)*math.cos(phi)) + wm*(Pnn*(1 - Pnn)*math.sin(phi)*math.sin(phi))/(wh + alpha*wm*kn**2))
+	Pnn = kzeta**2/(kn**2) - Fn*B*kzeta**4/(kn**4)
 
+	A = math.sin(theta)*math.sin(theta)
+	C = math.cos(phi)*math.cos(phi)
+	D = math.sin(phi)*math.sin(phi)
 	Fnn_1 = Pnn
-	Fnn_2 = math.sin(theta)*math.sin(theta)
-	Fnn_3 = (-1)*math.sin(theta)*math.sin(theta)*Pnn*(1 + math.cos(phi)*math.cos(phi))
-	Fnn_4 = math.sin(theta)*math.sin(theta)*wm*(Pnn*(1 - Pnn)*math.sin(phi)*math.sin(phi))/(wh + alpha*wm*kn**2)
-	Fnn_new = Fnn_1 + Fnn_2 + Fnn_3 + Fnn_4
-	
-	omega_n = math.sqrt((wh + alpha*wm*kn**2)*(wh + alpha*wm*kn**2 + wm*Fnn))
-	return omega_n
+	Fnn_2 = A
+	Fnn_3 = -A*Pnn*(1 + C)
+	Fnn_4 = A*wm*Pnn*(1 - Pnn)*D/Q
+	Fnn = (Fnn_1 + Fnn_2 + Fnn_3 + Fnn_4)
+
+	return (math.sqrt(Q*(Q + wm*Fnn)))
 
 def dwdk(kzeta, phi, Ms, H, d, gamma, alpha, L, theta, k_max, n):
 	pi = math.pi
