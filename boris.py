@@ -610,43 +610,6 @@ def dwdk(kzeta, phi, Ms, H, d, gamma, alpha, L, theta, k_max, n):
 	dwdky = dwdkzeta*(math.sin(phi)) + (1/kzeta)*dwdphi*math.cos(phi)
 	return [dwdkz, dwdky, dwdkzeta, dwdphi]
 
-def dispersion_rect(filename, surface_filename, Ms, H, d, gamma, alpha, phi_selected, L, theta, k_max, n):
-	disp_out = open(filename, 'a')
-	dispersion_surface_out = open(surface_filename, 'a')
-
-	print('Calculating dispersion surface...')
-
-	pi = math.pi
-	
-	for i in range(0,int(k_max + 1)):
-		kz = i*2*pi/L
-		for l in range(1,int(k_max + 1)):
-			# in-plane wavevector, in direction of propagation
-			ky = 2*pi*l/L
-			kzeta = math.sqrt(ky**2 + kz**2)
-			phi = math.atan2(ky,kz)
-			omg_temp = omega_n(kzeta, phi, Ms, H, d, gamma, alpha, theta, n)
-
-			# Frequency written to file in GHz, wavevector inverse meters
-			dispersion_surface_out.write(str(kz) + '\t' + str(ky) + '\t' + str(omg_temp*10**-9) + '\n')
-			dispersion_surface_out.write(str(-kz) + '\t' + str(ky) + '\t' + str(omg_temp*10**-9) + '\n')
-			dispersion_surface_out.write(str(-kz) + '\t' + str(-ky) + '\t' + str(omg_temp*10**-9) + '\n')
-			dispersion_surface_out.write(str(kz) + '\t' + str(-ky) + '\t' + str(omg_temp*10**-9) + '\n')
-
-			if phi == phi_selected:
-				if kzeta == 2*pi/L:
-					print('Writing 1D dispersion for specified value of PHI: ' + str(math.degrees(phi)) + ' degrees')
-				# Frequency written to file in GHz, wavevector in inverse centimeters
-				disp_out.write(str(kzeta*10**-2) + '\t' + str(omg_temp*10**-9) + '\n')
-
-		# We need this newline for gnuplot's pm3d function
-		dispersion_surface_out.write('\n')
-
-	dispersion_surface_out.close()
-	disp_out.close()
-	print('Done calculating dispersion surface!')
-	return
-
 if __name__ == "__main__":
 	import sys
 	if len(sys.argv) == 1:
