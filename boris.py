@@ -487,12 +487,9 @@ def point_source(data_filename, phase_filename, amplitude_filename, L):
 					continue
 				kz = float(line.split()[0].strip())
 				ky = float(line.split()[1].strip())
-				psi = math.atan2(y,z)
-				phi = math.atan2(ky,kz)
-				#print(str(math.degrees(psi)))
 
 				emission_amplitude = 1
-				emission_phase = math.sqrt(y**2 + z**2)*math.sqrt(ky**2 + kz**2)*math.cos(phi)
+				emission_phase = math.sqrt(y**2 + z**2)*math.sqrt(ky**2 + kz**2)
 	
 				emission_amplitude_accum = emission_amplitude_accum + emission_amplitude
 				emission_phase_accum = emission_phase_accum + emission_phase
