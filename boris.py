@@ -74,11 +74,12 @@ def boris_calculates():
 	print('theta:\t\t' + str(theta))
 	print('frequency:\t' + str(freq))
 
-	# Convert phi to radians
+	# Unit conversions from set_the_boris to what the routines need
+	# degrees -> radians
 	phi_selected = phi_selected * pi/180
-	# Convert theta to radians
+	# degrees -> radians
 	theta = theta * pi/180
-	# Convert GHz to Hz
+	# GHz -> Hz
 	freq = freq*10**9
 
 	if abs(dispersion_test) != 0:
@@ -400,7 +401,7 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 				break
 			if ky > k_max:
 				didnt_find_it = 1
-				print('We found nothing!!!')
+				print('No wavevector on the slowness surface up to wavevecotr k_max has been found')
 				return
 			ky = ky + 10.0
 
