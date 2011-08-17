@@ -438,9 +438,9 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 			kz_init = kz
 		
 			slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\n')
-			slowness_surface_equal_out.write(str(-kz) + '\t' + str(ky) + '\n')
-			slowness_surface_equal_out.write(str(-kz) + '\t' + str(-ky) + '\n')
-			slowness_surface_equal_out.write(str(kz) + '\t' + str(-ky) + '\n')
+			#slowness_surface_equal_out.write(str(-kz) + '\t' + str(ky) + '\n')
+			#slowness_surface_equal_out.write(str(-kz) + '\t' + str(-ky) + '\n')
+			#slowness_surface_equal_out.write(str(kz) + '\t' + str(-ky) + '\n')
 
 			dwdk_temp = dwdk(kzeta, phi, Ms, H, d, gamma, alpha, L, theta, k_max, n)
 			slowness_surface_equal_vector_out.write(str(kz) + '\t' + str(ky) + '\t' + str(dwdk_temp[0]) + '\t' + str(dwdk_temp[1]) + '\n')
@@ -474,27 +474,33 @@ def point_source(data_filename, phase_filename, amplitude_filename, L):
 	emission_amplitude_accum = 0.0
 	emission_phase_accum = 0.0
 
-	y_steps = 100
-	z_steps = 100
+	y_steps = 50
+	z_steps = y_steps
 
 	for y_prim in range(0, y_steps + 1):
 		slowness_surface_data = open(data_filename, 'r')
-		y = L*y_prim/(y_steps) - L/2
+		y = L*y_prim/(2*y_steps)
 		for z_prim in range(0, z_steps + 1):
-			z = L*z_prim/z_steps - L/2
+			z = L*z_prim/(2*z_steps)
 			for line in slowness_surface_data:
 				if line[0] == '#':
 					continue
 				kz = float(line.split()[0].strip())
 				ky = float(line.split()[1].strip())
+				psi = math.atan2(y,z)
+				phi = math.atan2(ky,kz)
+				#print(str(math.degrees(psi)))
 
 				emission_amplitude = 1
-				emission_phase = math.sqrt(y**2 + z**2)*math.sqrt(ky**2 + kz**2)
+				emission_phase = math.sqrt(y**2 + z**2)*math.sqrt(ky**2 + kz**2)*math.cos(phi)
 	
 				emission_amplitude_accum = emission_amplitude_accum + emission_amplitude
 				emission_phase_accum = emission_phase_accum + emission_phase
 
 			phase_out.write(str(z) + '\t' + str(y) + '\t' + str(emission_phase_accum) + '\n')
+			#phase_out.write(str(-z) + '\t' + str(y) + '\t' + str(emission_phase_accum) + '\n')
+			#phase_out.write(str(-z) + '\t' + str(-y) + '\t' + str(emission_phase_accum) + '\n')
+			#phase_out.write(str(z) + '\t' + str(-y) + '\t' + str(emission_phase_accum) + '\n')
 			amplitude_out.write(str(z) + '\t' + str(y) + '\t' + str(emission_amplitude_accum) + '\n')
 		emission_amplitude_accum = 0.0
 		emission_phase_accum = 0.0
