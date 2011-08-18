@@ -439,13 +439,13 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 			kz_init = kz
 		
 			# For polar plot
-			#slowness_surface_equal_out.write(str(phi) + '\t' + str(kzeta) + '\n')
+			slowness_surface_equal_out.write(str(phi) + '\t' + str(kzeta) + '\n')
 			#slowness_surface_equal_out.write(str(phi + pi) + '\t' + str(kzeta) + '\n')
 			#slowness_surface_equal_out.write(str(pi - phi) + '\t' + str(kzeta) + '\n')
 			#slowness_surface_equal_out.write(str(-phi) + '\t' + str(kzeta) + '\n')
 
 			# For rectangular plot
-			slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\n')
+			#slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\n')
 			#slowness_surface_equal_out.write(str(-kz) + '\t' + str(ky) + '\n')
 			#slowness_surface_equal_out.write(str(-kz) + '\t' + str(-ky) + '\n')
 			#slowness_surface_equal_out.write(str(kz) + '\t' + str(-ky) + '\n')
