@@ -438,7 +438,8 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 			ky_init = ky
 			kz_init = kz
 		
-			slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\n')
+			slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\t' + str(kzeta) + '\t' + str(phi) + '\n')
+			#slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\n')
 			#slowness_surface_equal_out.write(str(-kz) + '\t' + str(ky) + '\n')
 			#slowness_surface_equal_out.write(str(-kz) + '\t' + str(-ky) + '\n')
 			#slowness_surface_equal_out.write(str(kz) + '\t' + str(-ky) + '\n')
