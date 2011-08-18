@@ -426,7 +426,7 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 		if kz == 0.0:
 			phi = pi/2
 		else:
-			phi = math.atan(ky/kz)
+			phi = math.atan2(ky,kz)
 		
 		if phi < 0 or phi > pi/2:
 			print('Finished sweeping first quadrant!')
@@ -438,8 +438,14 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 			ky_init = ky
 			kz_init = kz
 		
-			slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\t' + str(kzeta) + '\t' + str(phi) + '\n')
-			#slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\n')
+			# For polar plot
+			#slowness_surface_equal_out.write(str(phi) + '\t' + str(kzeta) + '\n')
+			#slowness_surface_equal_out.write(str(phi + pi) + '\t' + str(kzeta) + '\n')
+			#slowness_surface_equal_out.write(str(pi - phi) + '\t' + str(kzeta) + '\n')
+			#slowness_surface_equal_out.write(str(-phi) + '\t' + str(kzeta) + '\n')
+
+			# For rectangular plot
+			slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\n')
 			#slowness_surface_equal_out.write(str(-kz) + '\t' + str(ky) + '\n')
 			#slowness_surface_equal_out.write(str(-kz) + '\t' + str(-ky) + '\n')
 			#slowness_surface_equal_out.write(str(kz) + '\t' + str(-ky) + '\n')
