@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\title{point source}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+We consider a spin-wave point source contacting an unbounded ferromagnetic medium.
+\end{abstract}
+\section{Point source}
+All emitted waves are assumed to originate at a point, i.e. the location of the source. 
+An ideal point source emits with equal amplitude all waves with wavevector satisfying $\omega ( \vec{k} ) = f_{0}$, where $f_{0}$ is the microwave frequency. 
+Wavevectors satisfying $\omega ( \vec{k} ) = f_{0}$ are said to ``lie on the slowness surface", where ``slowness surface" designates isofrequency curves on the dispersion surface in momentum space. 
+To abbreviate, we write $(k_{z},k_{y}) \in S.S.$.
+Each point on the slowness surface represents a two-dimensional (2D) wave, which is a component of the profile of the dynamic magnetization $\vec{M}(\vec{r} , t)$ with wavevector $\vec{k} = (k_{z} , k_{y})$. 
+
+Therefore, neglecting damping in the supporting (ferromagnetic) medium, we can write down an expression for the spatial profile of the dynamic magnetization based on an inverse 2D Fourier transform over the slowness surface. 
+For illustration, we begin with the continuous 2D inverse Fourier transform.
+We write $M(z , y)$ to denote the scalar amplitude of the out-of-plane dynamic magnetization at point $(z, y)$. 
+Then,
+\begin{equation}
+M(z,y) =\frac{1}{2\pi} \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} F(k_{z},k_{y}) e^{i (k_{z} z + k_{y} y)} dk_{z} dk_{y} .
+\end{equation}
+Now, we define the weights of the 2D spectrum $F(k_{z},k_{y})$ of $M(z , y)$. Namely,
+\begin{align}
+F(k_{z},k_{y}) &= 1 \text{  } \forall (k_{z},k_{y}) \in S.S. \\
+&= 0 \text{ otherwise.} \nonumber
+\end{align}
+Hence, neglecting damping, $M(z, y)$ can be written as
+\begin{equation}\label{mag_no_damping}
+M(z,y) = \frac{1}{2\pi} \int\int_{(k_{z},k_{y}) \in S.S.} e^{i (k_{z} z + k_{y} y)} dk_{z} dk_{y} .
+\end{equation}
+We consider the point source to lie at the origin $(0,0)$ in the spatial $(z,y)$ coordinate system. We consider the magnetization to be locally excited at the point source. We calculate the magnetization in a circular region of radius $a$ centered about $(0,0)$. Then, equation (\ref{mag_no_damping}) reflects the dynamic magnetization at times $t$ where $t > t_{prop}$ and $t_{prop} = v_{ph}a$, $v_{ph}$ being the minimum phase velocity for waves on the slowness surface. Lastly, the region in which we calculate $M(z, y)$ is considered to be part of an unbounded (saturated) ferromagnetic medium.
+
+In our calculations, the slowness surface is a discrete set of points. Therefore, in constructing $M(z,y)$ we must apply a discrete (inverse) Fourier transform. To wit,
+\begin{equation}
+M_{Z Y}(z,y) = \frac{1}{2\pi}\sum_{k_{z} = -\infty}^{\infty} \sum_{k_{y} = -\infty}^{\infty} F[k_{z},k_{y}] e^{i (z k_{z} \Delta_{k_{z}} + y k_{y} \Delta_{k_{y}})}
+\end{equation}
+where $\Delta_{k_{z}}$ and $\Delta_{k_{y}}$ are the intervals between consecutive samples in the spectrum $F[k_{z},k_{y}]$ and $Z = \frac{1}{\Delta_{k_{z}}}$ and $Y = \frac{1}{\Delta_{k_{y}}}$ are the periods of $M(z,y)$ in the z and y directions, respectively. 
+Once again, we assume
+\begin{align}
+F[k_{z},k_{y}] &= 1 \text{  } \forall (k_{z},k_{y}) \in S.S. \\
+&= 0 \text{ otherwise.} \nonumber
+\end{align}
+Therefore, we can write down 
+\begin{equation}\label{dft_mag}
+M_{Z Y}(z,y) = \frac{1}{2\pi}\sum_{(k_{z},k_{y}) \in S.S.} e^{i (z k_{z} \Delta_{k_{z}} + y k_{y} \Delta_{k_{y}})}
+\end{equation}
+as the expression for the out-of-plane magnetization at point $(z,y)$ in the ferromagnetic medium.
+
+We have neglected damping. 
+It is an experimental fact that spin-waves propagating in a ferromagnetic medium are damped. 
+We assume that each constituent wave of the dynamic magnetization is individually damped. 
+Moreover, we insert ``by hand" the anisotropic damping of the medium.
+We insert a factor into the sum in equation (\ref{dft_mag}), namely
+\begin{equation}
+\text{exp}\left(\frac{-|\vec{r}| \omega_{r}}{|\hat{r} \cdot \vec{v}_{g}(k_{z},k_{y}) |}\right)
+\end{equation}
+to reflect the anisotropic damping (following Sergej). 
+The position vector $\vec{r} = (z,y)$ is the point at which the dynamic magnetization is being calculated. 
+The symbol $\hat{r} = \left(\frac{z}{\sqrt{z^2+y^2}},\frac{y}{\sqrt{z^2+y^2}}\right)$ represents the unit vector parallel to $\vec{r}$. 
+The group velocity $\vec{v}_{g}$ varies over the slowness surface, therefore we calculate the group velocity for each point on the slowness surface.
+The spin-wave relaxation rate is $\omega_{r}$, given by $\omega_{r} = \alpha (\omega_{H} + \frac{\omega_{M}}{2})$.
+
+Gathering together the parts, we have
+\begin{equation}
+M_{Z Y}(\vec{r}) = \frac{1}{2\pi}\sum_{\vec{k} \in S.S.} e^{\frac{-|\vec{r}| \omega_{r}}{|\hat{r} \cdot \vec{v}_{g}(k_{z},k_{y}) |}}             e^{i \Delta_{k} \vec{k} \cdot \vec{r}}
+\end{equation}
+as the expression for the out-of-plane magnetization at $\vec{r}$ in the ferromagnetic medium, including damping.
+\end{document}
