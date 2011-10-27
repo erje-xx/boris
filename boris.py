@@ -55,8 +55,7 @@ def boris_calculates():
 			# home/erje/boris
 			# home/erje/boris/
 			# IOW, these all result in /home/erje/boris/
-			WORKING_DIRECTORY_in = form_line[1].strip('/\n ')
-			WORKING_DIRECTORY = '/' + WORKING_DIRECTORY_in + '/'
+			WORKING_DIRECTORY = '/' + form_line[1].strip('/\n ') + '/'
 			
 		else:
 			continue
@@ -86,24 +85,24 @@ def boris_calculates():
 		disp_filename = WORKING_DIRECTORY + 'dispersion.dat'
 		disp_surface_filename = WORKING_DIRECTORY + 'dispersion_surface.dat'
 
-		file_header_prep(disp_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
-		file_header_prep(disp_surface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		file_header_prep(WORKING_DIRECTORY, disp_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		file_header_prep(WORKING_DIRECTORY, disp_surface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
-		dispersion(disp_filename, disp_surface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		dispersion_rect(disp_filename, disp_surface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
 	if abs(group_velocity_test) != 0:
 		gp_filename = WORKING_DIRECTORY + 'group_velocity_1D.dat'
 		vf_filename = WORKING_DIRECTORY + 'group_velocity.dat'
 
-		file_header_prep(gp_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
-		file_header_prep(vf_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		file_header_prep(WORKING_DIRECTORY, gp_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		file_header_prep(WORKING_DIRECTORY, vf_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
 		group_velocity(gp_filename, vf_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
 	if abs(slowness_surface_test) != 0:
 		ss_filename = WORKING_DIRECTORY + 'slowness_surface.dat'
 
-		file_header_prep(ss_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		file_header_prep(WORKING_DIRECTORY, ss_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
 		slowness_surface(ss_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
@@ -111,8 +110,8 @@ def boris_calculates():
 		ssurface_filename = WORKING_DIRECTORY + 'slowness_surface_equal.dat'
 		vector_filename = WORKING_DIRECTORY + 'slowness_surface_equal_vector.dat'
 
-		#file_header_prep(ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
-		file_header_prep(vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		#file_header_prep(WORKING_DIRECTORY, ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		file_header_prep(WORKING_DIRECTORY, vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
 		slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
@@ -122,8 +121,8 @@ def boris_calculates():
 		amplitude_filename = WORKING_DIRECTORY + 'point_source_amplitude.dat'
 		vector_filename = WORKING_DIRECTORY + 'slowness_surface_equal_vector.dat'
 
-		file_header_prep(amplitude_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
-		file_header_prep(phase_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		file_header_prep(WORKING_DIRECTORY, amplitude_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		file_header_prep(WORKING_DIRECTORY, phase_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
 		point_source(vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
@@ -131,7 +130,8 @@ def boris_calculates():
 
 
 #def dispersion(filename, surface_filename, Ms, H, d, gamma, alpha, phi_selected, L, theta, k_max, n):
-def dispersion(disp_filename, disp_surface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
+
+def dispersion_polar(disp_filename, disp_surface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
 	disp_out = open(disp_filename, 'a')
 	dispersion_surface_out = open(disp_surface_filename, 'a')
 
@@ -167,6 +167,39 @@ def dispersion(disp_filename, disp_surface_filename, Ms, H, d, gamma, alpha, the
 	print('Done calculating dispersion surface!')
 	return
 
+def dispersion_rect(disp_filename, disp_surface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
+	disp_out = open(disp_filename, 'a')
+	dispersion_surface_out = open(disp_surface_filename, 'a')
+
+	print('Calculating dispersion surface...')
+
+	pi = math.pi
+	
+	for i in range(0,int(k_max + 1)):
+		kz = 2*pi/L*(2*i-k_max)
+		for l in range(0,int(k_max + 1)):
+			ky = 2*pi/L*(2*l-k_max)
+
+			kzeta= math.sqrt(kz**2 + ky**2)
+			phi = math.atan2(kz,ky)
+			omg_temp = omega_n(kzeta, phi, Ms, H, d, gamma, alpha, theta, trans_n)
+
+			# Frequency written to file in GHz, wavevector inverse meters
+			dispersion_surface_out.write(str(kz) + '\t' + str(ky) + '\t' + str(omg_temp*10**-9) + '\n')
+
+			if phi == phi_selected:
+				if kzeta == 2*pi/L:
+					print('Writing 1D dispersion for specified value of PHI: ' + str(math.degrees(phi)) + ' degrees')
+				# Frequency written to file in GHz, wavevector in inverse centimeters
+				disp_out.write(str(kzeta*10**-2) + '\t' + str(omg_temp*10**-9) + '\n')
+
+		# We need this newline for gnuplot's pm3d function
+		dispersion_surface_out.write('\n')
+
+	dispersion_surface_out.close()
+	disp_out.close()
+	print('Done calculating dispersion surface!')
+	return
 
 #def group_velocity(gp_filename, vf_filename, Ms, H, d, gamma, alpha, phi_selected, L, theta, k_max, n):
 def group_velocity(gp_filename, vf_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
@@ -232,6 +265,34 @@ def slowness_surface(ss_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, 
 	print('Done calculating slowness surface!')
 	return
 
+def slowness_surface_rect(ss_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
+	slowness_surface_out = open(ss_filename, 'a')
+
+	pi = math.pi
+
+	epsilon = freq/10**4
+
+	print('Calculating slowness surface at frequency: ' + str(freq*10**-9) + ' GHz')
+
+	for i in range(0, int(k_max + 1)):
+		kz = 2*pi/L*(2*i-k_max)
+		for l in range(1,int(k_max + 1)):
+			ky = 2*pi/L*(2*l-k_max)
+			kzeta = math.sqrt(kz**2 + ky**2)
+			phi = math.atan2(kz,ky)
+
+			omg_temp = omega_n(kzeta, psi, Ms, H, d, gamma, alpha, theta, trans_n)
+
+			if abs(omg_temp - freq) < epsilon:
+				slowness_surface_out.write(str(kz) + '\t' + str(ky) + '\n')
+				slowness_surface_out.write(str(-kz) + '\t' + str(ky) + '\n')
+				slowness_surface_out.write(str(-kz) + '\t' + str(-ky) + '\n')
+				slowness_surface_out.write(str(kz) + '\t' + str(-ky) + '\n')
+
+	slowness_surface_out.close()
+	print('Done calculating slowness surface!')
+	return
+
 #def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, alpha, theta, n, omega_fixed, k_max, L):
 def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
 	#slowness_surface_equal_out = open(ssurface_filename, 'a')
@@ -250,7 +311,7 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 
 	while kz < k_max:
 		kzeta = math.sqrt(ky**2 + kz**2)
-		phi = math.atan(ky/kz)
+		phi = math.atan2(kz,ky)
 
 		omg_temp = omega_n(kzeta, phi, Ms, H, d, gamma, alpha, theta, trans_n)
 
@@ -270,10 +331,7 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 		ky = 0.01
 		while True:
 			kzeta = math.sqrt(ky**2 + kz**2)
-			if kz == 0.0:
-				phi = pi/2
-			else:
-				phi = math.atan(ky/kz)
+			phi = math.atan2(kz,ky)
 	
 			omg_temp = omega_n(kzeta, phi, Ms, H, d, gamma, alpha, theta, trans_n)
 	
@@ -305,14 +363,11 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 	print('delta_k: ' + str(delta_k) + ' inverse meters')
 	print('epsilon: ' + str(epsilon*10**-9) + ' GHz')
 	while True:
-		ky = ky_init + delta_k*math.sin(psi)
 		kz = kz_init + delta_k*math.cos(psi)
+		ky = ky_init + delta_k*math.sin(psi)
 
 		kzeta = math.sqrt(ky**2 + kz**2)
-		if kz == 0.0:
-			phi = pi/2
-		else:
-			phi = math.atan2(ky,kz)
+		phi = math.atan2(kz,ky)
 		
 		if phi < 0 or phi > pi/2:
 			print('Finished sweeping first quadrant!')
@@ -325,10 +380,10 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 			kz_init = kz
 		
 			# For polar plot
-			#slowness_surface_equal_out.write(str(phi) + '\t' + str(kzeta) + '\n')
-			#slowness_surface_equal_out.write(str(phi + pi) + '\t' + str(kzeta) + '\n')
-			#slowness_surface_equal_out.write(str(pi - phi) + '\t' + str(kzeta) + '\n')
-			#slowness_surface_equal_out.write(str(-phi) + '\t' + str(kzeta) + '\n')
+			#slowness_surface_equal_out.write(str(kzeta) + '\t' + str(phi) + '\n')
+			#slowness_surface_equal_out.write(str(kzeta) + '\t' + str(phi + pi) + '\n')
+			#slowness_surface_equal_out.write(str(kzeta) + '\t' + str(pi - phi) + '\n')
+			#slowness_surface_equal_out.write(str(kzeta) + '\t' + str(-phi) + '\n')
 
 			# For rectangular plot
 			#slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\n')
@@ -375,6 +430,8 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 	print('Calculating emission pattern')
 
 	grid_out = open('/home/erje/boris/grid_out.dat','w')
+	phase_out = open('/home/erje/boris/phase_out.dat','w')
+	amplitude_out = open('/home/erje/boris/amplitude_out.dat','w')
 	reduced_out = open('/home/erje/boris/reduced.dat','w')
 
 	pi = math.pi
@@ -389,8 +446,6 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 	z_step_size = 200
 	y_step_size = 200
 	new_L = L
-
-
 
 	ssurface_in = open(ref_ssurface_filename, 'r')
 	i=0
@@ -433,7 +488,6 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 	ssurface_in.close()
 	reduced_out.close()
 
-
 	for in_z in range(0,int(z_step_size) + 1):
 		z = 2*new_L*in_z/z_step_size - new_L
 		if (100*in_z/z_step_size) % 20.0 == 0.0 and (100*in_z/z_step_size) != 0.0:
@@ -441,9 +495,11 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 		for in_y in range(0,int(y_step_size) + 1):
 			y = 2*new_L*in_y/y_step_size - new_L
 			grid_point = [z,y,0.0]
-			ssurface_in = open(ref_ssurface_filename, 'r')
-			#for line in ssurface_in:
+			amplitude = [z,y,0.0]
+			phase = [z,y,0.0]
+			#ssurface_in = open(ref_ssurface_filename, 'r')
 			for line in reduced_ss:
+			#for line in ssurface_in:
 				#if line[0] == '#':
 					#continue
 				#kz = float(line.split()[0].strip())
@@ -457,19 +513,25 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 				dwdky = float(line[3])
 				r_dot_vg = abs(z*dwdkz + y*dwdky)
 				if r_dot_vg == 0.0:
-					#grid_point[2] = grid_point[2] + 0
 					continue
 				else:
 					#grid_point[2] = grid_point[2] + (1/(2*pi))*math.exp((-(z**2+y**2)*omega_r)/r_dot_vg)*math.cos(delta_k*(kz*z+ky*y))
-					grid_point[2] = grid_point[2] + (1/(2*pi))*math.exp((-(z**2+y**2)*omega_r)/(2*r_dot_vg))
+					amplitdue[2] = amplitdue[2] + (1/(2*pi))*math.exp((-(z**2+y**2)*omega_r)/(r_dot_vg))
+					phase[2] = phase[2] + math.cos(delta_k*(kz*z+ky*y))
 
-			ssurface_in.close()
-			grid_out.write(str(grid_point[0]) + '\t' + str(grid_point[1]) + '\t' + str(grid_point[2]) + '\n')
+			#ssurface_in.close()
+			#grid_out.write(str(grid_point[0]) + '\t' + str(grid_point[1]) + '\t' + str(grid_point[2]) + '\n')
+			amplitude_out.write(str(amplitude[0]) + '\t' + str(amplitude[1]) + '\t' + str(amplitude[2]) + '\n')
+			phase_out.write(str(phase[0]) + '\t' + str(phase[1]) + '\t' + str(phase[2]) + '\n')
 		grid_out.write('\n')
+		amplitude_out.write('\n')
+		phase_out.write('\n')
 
 	print('Done calculating emission pattern!')
 	ssurface_in.close()
 	grid_out.close()
+	phase_out.close()
+	amplitude_out.close()
 	return
 
 # frequency
@@ -640,9 +702,9 @@ def d2wdk2(kzeta, phi, Ms, H, d, gamma, alpha, L, theta, k_max, n):
 	dwdky = dwdkzeta*(math.sin(phi)) + (1/kzeta)*dwdphi*math.cos(phi)
 	return [dwdkz, dwdky, dwdkzeta, dwdphi]
 
-def file_header_prep(prep_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
+def file_header_prep(WORKING_DIRECTORY, prep_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
 	file_to_be_prep = open(prep_filename, 'w')
-	#file_to_be_prep.write('# WORKING_DIRECTORY: ' + WORKING_DIRECTORY + '\n')
+	file_to_be_prep.write('# WORKING_DIRECTORY: ' + WORKING_DIRECTORY + '\n')
 	file_to_be_prep.write('# Ms:\t\t' + str(Ms) + '\n')
 	file_to_be_prep.write('# H:\t\t' + str(H) + '\n')
 	file_to_be_prep.write('# gamma:\t' + str(gamma) + '\n')
