@@ -386,8 +386,8 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 	#Fix a way to get out delta_k!
 	delta_k = 15347.2002
 
-	z_step_size = 100
-	y_step_size = 100
+	z_step_size = 200
+	y_step_size = 200
 	new_L = L
 
 
@@ -433,8 +433,6 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 	ssurface_in.close()
 	reduced_out.close()
 
-	if True:
-		return
 
 	for in_z in range(0,int(z_step_size) + 1):
 		z = 2*new_L*in_z/z_step_size - new_L
@@ -444,14 +442,19 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 			y = 2*new_L*in_y/y_step_size - new_L
 			grid_point = [z,y,0.0]
 			ssurface_in = open(ref_ssurface_filename, 'r')
-			for line in ssurface_in:
-				if line[0] == '#':
-					continue
-				kz = float(line.split()[0].strip())
-				ky = float(line.split()[1].strip())
-				dwdkz = float(line.split()[2].strip())
-				dwdky = float(line.split()[3].strip())
+			#for line in ssurface_in:
+			for line in reduced_ss:
+				#if line[0] == '#':
+					#continue
+				#kz = float(line.split()[0].strip())
+				#ky = float(line.split()[1].strip())
+				#dwdkz = float(line.split()[2].strip())
+				#dwdky = float(line.split()[3].strip())
 
+				kz = float(line[0])
+				ky = float(line[1])
+				dwdkz = float(line[2])
+				dwdky = float(line[3])
 				r_dot_vg = abs(z*dwdkz + y*dwdky)
 				if r_dot_vg == 0.0:
 					#grid_point[2] = grid_point[2] + 0
