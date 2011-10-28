@@ -130,7 +130,6 @@ def boris_calculates():
 
 
 #def dispersion(filename, surface_filename, Ms, H, d, gamma, alpha, phi_selected, L, theta, k_max, n):
-
 def dispersion_polar(disp_filename, disp_surface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
 	disp_out = open(disp_filename, 'a')
 	dispersion_surface_out = open(disp_surface_filename, 'a')
@@ -303,6 +302,7 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 	epsilon = freq/10**4
 
 	print('Calculating slowness surface at frequency: ' + str(freq*10**-9) + ' GHz')
+	print('epsilon: ' + str(epsilon*10**-9) + ' GHz')
 
 	k_max = (2*pi/L)*k_max
 	kz = 0.01
@@ -318,10 +318,12 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 		if abs(omg_temp - freq) < epsilon:
 			ky_init = ky
 			kz_init = kz
+			delta_k = kz_init/50
 			print('Found initial ky, kz...starting along slowness surface...')
 			print('ky: ' + str(ky))
 			print('kz: ' + str(kz))
 			print('w: ' + str(omg_temp*10**-9) + ' GHz')
+			print('delta_k: ' + str(delta_k) + ' inverse meters')
 			didnt_find_it = 0
 			break
 		kz = kz + 10.0
@@ -338,10 +340,12 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 			if abs(omg_temp - freq) < epsilon:
 				ky_init = ky
 				kz_init = kz
+				delta_k = ky_init/50
 				print('Found initial ky, kz...starting along slowness surface...')
 				print('ky: ' + str(ky))
 				print('kz: ' + str(kz))
 				print('w: ' + str(omg_temp*10**-9) + ' GHz')
+				print('delta_k: ' + str(delta_k) + ' inverse meters')
 				break
 			if ky > k_max:
 				didnt_find_it = 1
@@ -349,13 +353,6 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 				return
 			ky = ky + 10.0
 
-	if ky_init == 0.0:
-		delta_k = kz_init/50
-	elif kz_init == 0.0:
-		delta_k = ky_init/50
-
-	print('delta_k: ' + str(delta_k) + ' inverse meters')
-	print('epsilon: ' + str(epsilon*10**-9) + ' GHz')
 
 	psi = 0.0
 	psi_old = 0
@@ -422,10 +419,9 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
 	print('Calculating emission pattern')
 
-	#grid_out = open('/home/erje/boris/grid_out.dat','w')
 	phase_out = open('/home/erje/boris/phase_out.dat','w')
 	amplitude_out = open('/home/erje/boris/amplitude_out.dat','w')
-	reduced_out = open('/home/erje/boris/reduced.dat','w')
+	reduced_out = open('/home/erje/boris/reduced_ss.dat','w')
 
 	pi = math.pi
 	LLG_alpha = 0.0006
@@ -434,11 +430,7 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 	omega_r = LLG_alpha*(omega_h + omega_m/2)
 
 	#Fix a way to get out delta_k!
-	delta_k = 15347.2002
-
-	z_step_size = 200
-	y_step_size = 200
-	new_L = L
+	#delta_k = 15347.2002
 
 	ssurface_in = open(ref_ssurface_filename, 'r')
 	i=0
@@ -452,7 +444,6 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 			dwdkz = float(line.split()[2].strip())
 			dwdky = float(line.split()[3].strip())
 			reduced_ss.append([kz,ky,dwdkz,dwdky])
-			#reduced_out.write(str(kz) + '\t' + str(ky) + '\n')
 
 			kzeta = math.sqrt(ky**2 + kz**2)
 			phi = math.atan2(kz,ky)
@@ -481,17 +472,75 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 	ssurface_in.close()
 	reduced_out.close()
 
+	# Define the fineness of the grid, here we work with 200x200
+	z_step_size = 200
+	y_step_size = 200
+	# The grid is a square. Here we define the length of a side.
+	grid_side_length = L
+
 	for in_z in range(0,int(z_step_size) + 1):
-		z = 2*new_L*in_z/z_step_size - new_L
+		z = 2*grid_side_length*in_z/z_step_size - grid_side_length
+		for in_y in range(0,int(y_step_size) + 1):
+			y = 2*grid_side_length*in_y/y_step_size - grid_side_length
+			if z==0.0 and y==0.0:
+				continue
+			amplitude = [z,y,0.0]
+			phase = [z,y,0.0]
+			for line in reduced_ss:
+				kz = float(line[0])
+				ky = float(line[1])
+				dwdkz = float(line[2])
+				dwdky = float(line[3])
+
+				r_dot_vg = abs(z*dwdkz + y*dwdky)
+				if r_dot_vg == 0.0:
+					continue
+				else:
+					amplitude[2] = amplitude[2] + (1/(2*pi))*math.exp((-(z**2+y**2)*omega_r)/(r_dot_vg))
+					phase[2] = phase[2] + math.cos((kz*z+ky*y))*math.cos((kz*z+ky*y))
+
+			amplitude_out.write(str(amplitude[0]) + '\t' + str(amplitude[1]) + '\t' + str(amplitude[2]) + '\n')
+			phase_out.write(str(phase[0]) + '\t' + str(phase[1]) + '\t' + str(phase[2]) + '\n')
 		if (100*in_z/z_step_size) % 20.0 == 0.0 and (100*in_z/z_step_size) != 0.0:
 			print('Finished processing ' + str(100*in_z/z_step_size) + ' percent of grid...')
+		amplitude_out.write('\n')
+		phase_out.write('\n')
+
+	print('Done calculating emission pattern!')
+	phase_out.close()
+	amplitude_out.close()
+	return
+
+def point_source_full(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
+	print('Calculating emission pattern')
+
+	phase_out = open('/home/erje/boris/phase_out_full.dat','w')
+	amplitude_out = open('/home/erje/boris/amplitude_out_full.dat','w')
+
+	pi = math.pi
+	LLG_alpha = 0.0006
+	omega_h = gamma*H
+	omega_m = gamma*Ms
+	omega_r = LLG_alpha*(omega_h + omega_m/2)
+
+	#Fix a way to get out delta_k!
+	#delta_k = 15347.2002
+
+	# Define the fineness of the grid, here we work with 200x200
+	z_step_size = 200
+	y_step_size = 200
+	# The grid is a square. Here we define the length of a side.
+	grid_side_length = L
+
+	for in_z in range(0,int(z_step_size) + 1):
+		z = 2*grid_side_length*in_z/z_step_size - grid_side_length
 		for in_y in range(0,int(y_step_size) + 1):
-			y = 2*new_L*in_y/y_step_size - new_L
-			grid_point = [z,y,0.0]
+			y = 2*grid_side_length*in_y/y_step_size - grid_side_length
+			if z==0.0 and y==0.0:
+				continue
 			amplitude = [z,y,0.0]
 			phase = [z,y,0.0]
 			ssurface_in = open(ref_ssurface_filename, 'r')
-			#for line in reduced_ss:
 			for line in ssurface_in:
 				if line[0] == '#':
 					continue
@@ -500,31 +549,22 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 				dwdkz = float(line.split()[2].strip())
 				dwdky = float(line.split()[3].strip())
 
-				#kz = float(line[0])
-				#ky = float(line[1])
-				#dwdkz = float(line[2])
-				#dwdky = float(line[3])
-
 				r_dot_vg = abs(z*dwdkz + y*dwdky)
 				if r_dot_vg == 0.0:
 					continue
 				else:
-					#grid_point[2] = grid_point[2] + (1/(2*pi))*math.exp((-(z**2+y**2)*omega_r)/r_dot_vg)*math.cos(delta_k*(kz*z+ky*y))
 					amplitude[2] = amplitude[2] + (1/(2*pi))*math.exp((-(z**2+y**2)*omega_r)/(r_dot_vg))
-					#phase[2] = phase[2] + math.cos(delta_k*(kz*z+ky*y))
-					phase[2] = phase[2] + math.cos((kz*z+ky*y))
+					phase[2] = phase[2] + math.cos((kz*z+ky*y))*math.cos((kz*z+ky*y))
 
 			ssurface_in.close()
-			#grid_out.write(str(grid_point[0]) + '\t' + str(grid_point[1]) + '\t' + str(grid_point[2]) + '\n')
 			amplitude_out.write(str(amplitude[0]) + '\t' + str(amplitude[1]) + '\t' + str(amplitude[2]) + '\n')
 			phase_out.write(str(phase[0]) + '\t' + str(phase[1]) + '\t' + str(phase[2]) + '\n')
-		#grid_out.write('\n')
+		if (100*in_z/z_step_size) % 20.0 == 0.0 and (100*in_z/z_step_size) != 0.0:
+			print('Finished processing ' + str(100*in_z/z_step_size) + ' percent of grid...')
 		amplitude_out.write('\n')
 		phase_out.write('\n')
 
 	print('Done calculating emission pattern!')
-	ssurface_in.close()
-	#grid_out.close()
 	phase_out.close()
 	amplitude_out.close()
 	return
