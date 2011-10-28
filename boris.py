@@ -350,18 +350,17 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 			ky = ky + 10.0
 
 	if ky_init == 0.0:
-		psi = 0.0
 		delta_k = kz_init/50
 	elif kz_init == 0.0:
-		psi = 0.0
 		delta_k = ky_init/50
+
+	print('delta_k: ' + str(delta_k) + ' inverse meters')
+	print('epsilon: ' + str(epsilon*10**-9) + ' GHz')
 
 	psi = 0.0
 	psi_old = 0
-
 	reverse_switch = 0
-	print('delta_k: ' + str(delta_k) + ' inverse meters')
-	print('epsilon: ' + str(epsilon*10**-9) + ' GHz')
+
 	while True:
 		kz = kz_init + delta_k*math.cos(psi)
 		ky = ky_init + delta_k*math.sin(psi)
@@ -384,12 +383,6 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 			#slowness_surface_equal_out.write(str(kzeta) + '\t' + str(phi + pi) + '\n')
 			#slowness_surface_equal_out.write(str(kzeta) + '\t' + str(pi - phi) + '\n')
 			#slowness_surface_equal_out.write(str(kzeta) + '\t' + str(-phi) + '\n')
-
-			# For rectangular plot
-			#slowness_surface_equal_out.write(str(kz) + '\t' + str(ky) + '\n')
-			#slowness_surface_equal_out.write(str(-kz) + '\t' + str(ky) + '\n')
-			#slowness_surface_equal_out.write(str(-kz) + '\t' + str(-ky) + '\n')
-			#slowness_surface_equal_out.write(str(kz) + '\t' + str(-ky) + '\n')
 
 			phi = math.atan2(kz,ky)
 			dwdk_temp = dwdk(kzeta, phi, Ms, H, d, gamma, alpha, L, theta, k_max, trans_n)
@@ -429,7 +422,7 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
 	print('Calculating emission pattern')
 
-	grid_out = open('/home/erje/boris/grid_out.dat','w')
+	#grid_out = open('/home/erje/boris/grid_out.dat','w')
 	phase_out = open('/home/erje/boris/phase_out.dat','w')
 	amplitude_out = open('/home/erje/boris/amplitude_out.dat','w')
 	reduced_out = open('/home/erje/boris/reduced.dat','w')
@@ -497,39 +490,41 @@ def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, 
 			grid_point = [z,y,0.0]
 			amplitude = [z,y,0.0]
 			phase = [z,y,0.0]
-			#ssurface_in = open(ref_ssurface_filename, 'r')
-			for line in reduced_ss:
-			#for line in ssurface_in:
-				#if line[0] == '#':
-					#continue
-				#kz = float(line.split()[0].strip())
-				#ky = float(line.split()[1].strip())
-				#dwdkz = float(line.split()[2].strip())
-				#dwdky = float(line.split()[3].strip())
+			ssurface_in = open(ref_ssurface_filename, 'r')
+			#for line in reduced_ss:
+			for line in ssurface_in:
+				if line[0] == '#':
+					continue
+				kz = float(line.split()[0].strip())
+				ky = float(line.split()[1].strip())
+				dwdkz = float(line.split()[2].strip())
+				dwdky = float(line.split()[3].strip())
 
-				kz = float(line[0])
-				ky = float(line[1])
-				dwdkz = float(line[2])
-				dwdky = float(line[3])
+				#kz = float(line[0])
+				#ky = float(line[1])
+				#dwdkz = float(line[2])
+				#dwdky = float(line[3])
+
 				r_dot_vg = abs(z*dwdkz + y*dwdky)
 				if r_dot_vg == 0.0:
 					continue
 				else:
 					#grid_point[2] = grid_point[2] + (1/(2*pi))*math.exp((-(z**2+y**2)*omega_r)/r_dot_vg)*math.cos(delta_k*(kz*z+ky*y))
-					amplitdue[2] = amplitdue[2] + (1/(2*pi))*math.exp((-(z**2+y**2)*omega_r)/(r_dot_vg))
-					phase[2] = phase[2] + math.cos(delta_k*(kz*z+ky*y))
+					amplitude[2] = amplitude[2] + (1/(2*pi))*math.exp((-(z**2+y**2)*omega_r)/(r_dot_vg))
+					#phase[2] = phase[2] + math.cos(delta_k*(kz*z+ky*y))
+					phase[2] = phase[2] + math.cos((kz*z+ky*y))
 
-			#ssurface_in.close()
+			ssurface_in.close()
 			#grid_out.write(str(grid_point[0]) + '\t' + str(grid_point[1]) + '\t' + str(grid_point[2]) + '\n')
 			amplitude_out.write(str(amplitude[0]) + '\t' + str(amplitude[1]) + '\t' + str(amplitude[2]) + '\n')
 			phase_out.write(str(phase[0]) + '\t' + str(phase[1]) + '\t' + str(phase[2]) + '\n')
-		grid_out.write('\n')
+		#grid_out.write('\n')
 		amplitude_out.write('\n')
 		phase_out.write('\n')
 
 	print('Done calculating emission pattern!')
 	ssurface_in.close()
-	grid_out.close()
+	#grid_out.close()
 	phase_out.close()
 	amplitude_out.close()
 	return
@@ -541,8 +536,8 @@ def omega_n(kzeta, phi, Ms, H, d, gamma, alpha, theta, n):
 	wm = gamma*Ms
 
 	# Exception for FMR
-	if kzeta == 0.0:
-		return math.sqrt(wh*(wh + wm))
+	#if kzeta == 0.0:
+		#return math.sqrt(wh*(wh + wm))
 	
 	kappa_n = n*pi/d
 	kn = math.sqrt(kzeta**2 + kappa_n**2)
