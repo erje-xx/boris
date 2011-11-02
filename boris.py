@@ -125,6 +125,7 @@ def boris_calculates():
 		file_header_prep(WORKING_DIRECTORY, phase_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
 		point_source(vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		#point_source_full(vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
 	return
 
@@ -527,8 +528,8 @@ def point_source_full(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, tran
 	#delta_k = 15347.2002
 
 	# Define the fineness of the grid, here we work with 200x200
-	z_step_size = 200
-	y_step_size = 200
+	z_step_size = 100
+	y_step_size = 100
 	# The grid is a square. Here we define the length of a side.
 	grid_side_length = L
 
@@ -540,7 +541,8 @@ def point_source_full(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, tran
 				continue
 			amplitude = [z,y,0.0]
 			phase = [z,y,0.0]
-			ssurface_in = open(ref_ssurface_filename, 'r')
+			ssurface_in = open('/home/erje/boris/henning_new.dat', 'r')
+			#ssurface_in = open(ref_ssurface_filename, 'r')
 			for line in ssurface_in:
 				if line[0] == '#':
 					continue

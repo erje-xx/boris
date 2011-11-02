@@ -6,41 +6,76 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-boris is a free python module which calculates the dispersion characteristics of spin waves (SW) in ferromagnetic films based on the theory of Kalinikos and Slavin. Additionally, boris calculates the emission pattern of a SW point source, or an array of point sources, contacting a ferromagnetic medium. 
+boris is a free python module which calculates the dispersion characteristics of spin waves (SW) in ferromagnetic films based on the theory of Kalinikos and Slavin. Additionally, boris calculates the emission pattern of a SW point source contacting a ferromagnetic medium. 
 \end{abstract}
 \section{Preliminaries}
-We first reproduce equations from Kalinikos and Slavin's original work that we have used for boris. We discuss boris' limitations; however, we do not discuss the theoretical limitations inhering in the theory of Kalinikos and Slavin. The main result utilized by boris is the explicit expression for the spin-wave dispersion derived in the perturbation theory. EQUATIONS
+We first reproduce equations from Kalinikos and Slavin's original work that we have used for boris. We discuss boris' limitations; however, we do not discuss the theoretical limitations inhering in the theory of Kalinikos and Slavin (K \& S). The main result utilized by boris is the explicit expression for the spin-wave dispersion derived via perturbation theory. Namely,
+\begin{equation}\label{dispersion_main}
+\omega_{n} = \sqrt{(\omega_{H} + \alpha \omega_{M} k_{n}^2)(\omega_{H} + \alpha \omega_{M} k_{n}^2 + \omega_{M} F_{nn})}
+\end{equation}
+where
+\begin{equation}
+F_{nn} = P_{nn} + sin^2(\theta) \left(1 - P_{nn} \left( 1 + \cos^2{\phi}\right) + \omega_{M} \frac{P_{nn}(1-P_{nn})\sin^2{\phi}}{(\omega_{H} + \alpha \omega_{M} k_{n}^2)} \right)
+\end{equation}
+and $k_{n}^2 = k_{\zeta}^2 + \kappa_{n}^2$. boris works exclusively in the approximation of totally unpinnned surface spins, for which $P_{nn}$ has the explicit expression
+\begin{equation}
+P_{nn} = \frac{k_{\zeta}^2}{k_{n}^2} - \frac{k_{\zeta}^4}{k_{n}^4} F_{n} \frac{1}{(1 + \delta_{0n})}
+\end{equation}
+whereby
+\begin{equation}
+F_{n} = \frac{2}{k_{\zeta}L} [1 - (-1)^n e^{-k_{\zeta}L}].
+\end{equation}
+In this approximation, $\kappa_{n} = \frac{n \pi}{L}$ where $L$ is the film thickness. Note that, we have here written $P_{nn}$ in the diagonal approximation, wherein $n = n^{\prime}$. Moreover, boris currently always sets $n = 0$.
 
+K \& S utilize two coordinate systems. The first $(\xi,\eta,\zeta)$ system is oriented such that the $\xi$ direction lies parallel to the film normal vector, if the film is considered as a plane with $L=0$. The upper and lower surfaces of the film lie at $\xi = \frac{L}{2}$ and $\xi = \frac{-L}{2}$, respectively. Furthermore, the direction of spin-wave propagation is oriented along the $\zeta$ direction. The second $(x,y,z)$ system is oriented such that the $z$ axis lies parallel to the saturation magnetization $\vec{M}_{0}$ and the internal static magnetic field $\vec{H}_{i}$. The angle $\theta$ measures the rotation of the $z$ axis relative to the $\xi$ axis and takes values in the range $[0,\pi]$. The angle $\phi$ measures the rotation of the $z$ axis relative to the $\zeta$ axis and takes values in the range $[0, 2 \pi]$. If $\theta = \frac{\pi}{2}$, the $\vec{M}_{0}$ lies ``in-plane". If then $\phi = 0$, then $z \parallel \zeta$. If instead $\phi = \frac{\pi}{2}$, then $z \parallel \eta$. Note that, $k_{\zeta}$ denotes the wavevector in the $\zeta$ direction.
+
+Additionally defined are $\omega_{H} = \mu_{0} |g| H_{i}$ and $\omega_{M} = \mu_{0} |g| M_{0}$, where $\mu_{0}$ is the permeability of vacuum, $|g|$ is the gyromagnetic ratio, $H_{i}$ is the magnitude of the internal field, and $M_{0}$ is the magnitude of the saturation magnetization. The constant $\alpha$ is the exchange constant.
+
+For fixed $\theta$, equation (\ref{dispersion_main}) may be regarded as an equation in the polar coordinates $(k_{\zeta},\phi)$ for $\omega_{n}$. We may therefore use elementary techniques to derive the group velocity $\vec{v}_{g} = \vec{\nabla} \omega_{n} = \frac{\partial \omega_{n}}{\partial k_{\zeta}} \hat{k}_{\zeta} + \frac{1}{k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} \hat{\phi}$. We begin with $\frac{\partial \omega_{n}}{\partial k_{\zeta}}$.
+
+We calculate the derivative of $\frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$ which is related to $\frac{\partial \omega_{n}}{\partial k_{\zeta}} = \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$. For notational convenience, we define 
+\begin{align}
+R &= \omega_{H} + \alpha \omega_{M} k_{n}^2 \\
+S &= \frac{\omega_{M} P_{nn} (1 - P_{nn}) \sin^2{\phi}}{R} \\
+E &= \omega_{M} \sin^2{\theta} \sin^2{\phi}.
+\end{align}
+Then, we have
+\begin{align}
+\omega_{n} &= \sqrt{R(R + \omega_{M} F_{nn})} \\
+\frac{\partial R}{\partial k_{\zeta}} &= 2  \alpha \omega_{M} k_{\zeta} \\
+\frac{\partial \omega_{n}^2}{\partial k_{\zeta}} &= \frac{\partial R}{\partial k_{\zeta}} \left[2R + \omega_{M} F_{nn} \right] + \omega_{M} R \frac{\partial F_{nn}}{\partial k_{\zeta}}.
+\end{align}
+Now, we calculate
+\begin{align}
+\frac{\partial F_{n}}{\partial k_{\zeta}} &= \frac{-2}{k_{\zeta}^2 L} + \frac{2 (-1)^n e^{-k_{\zeta} L}}{k_{\zeta}^2 L} + \frac{2 (-1)^n e^{-k_{\zeta} L}}{k_{\zeta}} \\
+\frac{\partial P_{nn}}{\partial k_{\zeta}} &= 2 k_{\zeta} k_{n}^{-2} - 2 k_{\zeta}^3 k_{n}^{-4} - 4 k_{\zeta}^3 k_{n}^{-4} F_{n} B +  \\
+&+ 4 k_{\zeta}^5 k_{n}^{-6} F_{n} B - k_{\zeta}^4 k_{n}^{-4} B \frac{\partial F_{n}}{\partial k_{\zeta}} \nonumber
+\end{align}
+where we have defined $B = \frac{1}{2}$ if $n=0$ and $B=1$ if $n \neq 0$.
+Now we have
+\begin{align}
+\frac{\partial F_{nn}}{\partial k_{\zeta}} &= \frac{\partial P_{nn}}{\partial k_{\zeta}} - \frac{\partial P_{nn}}{\partial k_{\zeta}} \sin^2{\theta} (1 + \cos^2{\phi}) - (R^{-2}) E P_{nn} \frac{\partial R}{\partial k_{\zeta}} + \\
+&+ (R^{-1}) E \frac{\partial P_{nn}}{\partial k_{\zeta}}  + (R^{-2}) E P_{nn}^2 \frac{\partial R}{\partial k_{\zeta}} - 2 (R^{-1}) E P_{nn} \frac{\partial P_{nn}}{\partial k_{\zeta}} \nonumber
+\end{align}
+which completes the expression for $\frac{\partial \omega_{n}}{\partial k_{\zeta}}$. For $\frac{\partial \omega_{n}}{\partial \phi}$, we find
+\begin{align}
+\frac{\partial \omega_{n}}{\partial \phi} &= \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial \phi} \\
+\frac{\partial \omega_{n}^2}{\partial \phi} &= R \omega_{M} \frac{\partial F_{nn}}{\partial \phi} \\
+\frac{\partial F_{nn}}{\partial \phi} &= \cos{2\phi} \left[ P_{nn} \sin^2{\theta} + S \right].
+\end{align}
+We may translate these results to rectangular coordinates. In that case, $\vec{v}_{g} = \vec{\nabla} \omega_{n} = \frac{\partial \omega_{n}}{\partial k_{z}} \hat{z} + \frac{\partial \omega_{n}}{\partial k_{y}} \hat{y}$. We have as relations
+\begin{align}
+k_{\zeta} &= \sqrt{k_{z}^2 + k_{y}^2} \\
+k_{z} &= k_{\zeta} \cos{\phi} \\
+k_{y} &= k_{\zeta} \sin{\phi}.
+\end{align}
+In that case,
+\begin{align}
+\frac{\partial \omega_{n}}{\partial k_{z}} &= \frac{\partial \omega_{n}}{\partial k_{\zeta}} \cos{\phi} + \frac{\partial \omega_{n}}{\partial \phi} \left(\frac{-\sin{\phi}}{k_{\zeta}}\right) \\
+\frac{\partial \omega_{n}}{\partial k_{y}} &= \frac{\partial \omega_{n}}{\partial k_{\zeta}} \sin{\phi} + \frac{\partial \omega_{n}}{\partial \phi} \left(\frac{\cos{\phi}}{k_{\zeta}}\right).
+\end{align}
 \section{Configuring boris}
 \section{Running boris}
-\subsection{Point source}
-All emitted waves are assumed to originate at a point, i.e. the location of the source. 
-An ideal point source emits with equal amplitude all waves with wavevector satisfying $\omega ( \vec{k} ) = f_{0}$, where $f_{0}$ is the microwave frequency. 
-Wavevectors satisfying $\omega ( \vec{k} ) = f_{0}$ are said to ``lie on the slowness surface", where ``slowness surface" designates isofrequency curves on the dispersion surface in momentum space. 
-To abbreviate, we write $(k_{z},k_{y}) \in S.S.$.
-If a wave lies on the slowness surface, it is a component of the profile of the dynamic magnetization $\vec{M}(\vec{r} , t)$ with wavevector $\vec{k} = (k_{z} , k_{y})$. 
-
-Therefore, neglecting damping in the supporting (ferromagnetic) medium, we can write down an expression for the spatial profile of the dynamic magnetization based on an inverse two-dimensional (2D) Fourier transform over the slowness surface. 
-For illustration, we begin with the continuous 2D inverse Fourier transform.
-We write $M(z , y)$ to denote the scalar amplitude of the out-of-plane dynamic magnetization at point $(z, y)$. Then,
-\begin{equation}
-M(z,y) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} F(k_{z},k_{y}) e^{2 \pi j (k_{z} z + k_{y} y)} dk_{z} dk_{y} .
-\end{equation}
-Now, we define the amplitude of the 2D spectrum $F(k_{z},k_{y})$ of $M(z , y)$. Namely,
-\begin{align}
-F(k_{z},k_{y}) &= 1 \text{  } \forall (k_{z},k_{y}) \in S.S. \\
-&= 0 \text{ otherwise.}
-\end{align}
-Hence, neglecting damping, $M(z, y)$ can be written as
-\begin{equation}\label{mag_no_damping}
-M(z,y) = \int\int_{(k_{z},k_{y}) \in S.S.} e^{2 \pi j (k_{z} z + k_{y} y)} dk_{z} dk_{y} .
-\end{equation}
-We consider the point source to lie at the origin $(0,0)$ in the spatial $(z,y)$ coordinate system. We consider the magnetization to be locally excited at the point source. We calculate the magnetization in a circular region of radius $a$ centered about $(0,0)$. Then, equation (\ref{mag_no_damping}) reflects the dynamic magnetization at times $t$ where $t > t_{prop}$ and $t_{prop} = a v_{ph}$, $v_{ph}$ being the minimum phase velocity for waves on the slowness surface. Lastly, the region in which we calculate $M(z, y)$ is considered to be part of an unbounded (saturated) ferromagnetic medium.
-
-In our calculations, the slowness surface is a discrete set of points, found via numerical methods. Therefore, in constructing $M(z,y)$ we must apply the discrete Fourier transform.
-
-Secondly, we have neglected damping.
-
 \section{Plotting output}
 
 \end{document}
@@ -52,3 +87,12 @@ Secondly, we have neglected damping.
 %  \includegraphics[angle=-90,width=100mm]{fwhm_ampl_log.eps}
 %  \caption{Peak amplitude of $\| \chi_{xx} \|^2$ as a function of linewidth, log-log plot. \label{fwhm_ampl_log}}
 %\end{figure}
+
+%Expression for P_{nn} in non-diagonal approximation...
+%\begin{equation}
+%P_{nn^{\prime}} = \frac{k_{\zeta}^2}{k_{n^{\prime}}^2} \delta_{nn^{\prime}} - \frac{k_{\zeta}^4}{k_{n}^2 k_{n^{\prime}}^2} F_{n} \frac{1}{[(1 + \delta_{0n})(1+\delta_{0n^{\prime}})]^{1/2}} \left(\frac{1 + (-1)^{n + n^{\prime}}}{2} \right)
+%\end{equation}
+
+% \frac{\partial k_{n}}{\partial k_{\zeta}} &= \frac{k_{\zeta}}{k_{n}} \\
+%\frac{\partial P_{nn}}{\partial k_{\zeta}} &= 2 k_{\zeta} k_{n}^{-2} - 2 k_{\zeta}^2 k_{n}^{-3} \frac{\partial k_{n}}{\partial k_{\zeta}} - 4 k_{\zeta}^3 k_{n}^{-4} F_{n} B +  \\
+%&+ 4 k_{\zeta} k_{n}^{-5} F_{n} B \frac{\partial k_{n}}{\partial k_{\zeta}} - k_{\zeta}^4 k_{n}^{-4} B \frac{\partial F_{n}}{\partial k_{\zeta}}
