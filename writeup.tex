@@ -48,8 +48,8 @@ Then, we have
 Now, we calculate
 \begin{align}
 \frac{\partial F_{n}}{\partial k_{\zeta}} &= \frac{-2}{k_{\zeta}^2 L} + \frac{2 (-1)^n e^{-k_{\zeta} L}}{k_{\zeta}^2 L} + \frac{2 (-1)^n e^{-k_{\zeta} L}}{k_{\zeta}} \\
-\frac{\partial P_{nn}}{\partial k_{\zeta}} &= 2 k_{\zeta} k_{n}^{-2} - 2 k_{\zeta}^3 k_{n}^{-4} - 4 k_{\zeta}^3 k_{n}^{-4} F_{n} B +  \\
-&+ 4 k_{\zeta}^5 k_{n}^{-6} F_{n} B - k_{\zeta}^4 k_{n}^{-4} B \frac{\partial F_{n}}{\partial k_{\zeta}} \nonumber
+\frac{\partial P_{nn}}{\partial k_{\zeta}} &= 2 \frac{k_{\zeta}}{k_{n}^{2}} - 2 \frac{k_{\zeta}^3}{k_{n}^{4}} - 4 \frac{k_{\zeta}^3}{k_{n}^{4}}   F_{n} B +  \\
+&+ 4 \frac{k_{\zeta}^5}{k_{n}^{6}} F_{n} B - \frac{k_{\zeta}^4}{k_{n}^{4}} B \frac{\partial F_{n}}{\partial k_{\zeta}} \nonumber
 \end{align}
 where we have defined $B = \frac{1}{2}$ if $n=0$ and $B=1$ if $n \neq 0$.
 Now we have
@@ -74,8 +74,14 @@ In that case,
 \frac{\partial \omega_{n}}{\partial k_{z}} &= \frac{\partial \omega_{n}}{\partial k_{\zeta}} \cos{\phi} + \frac{\partial \omega_{n}}{\partial \phi} \left(\frac{-\sin{\phi}}{k_{\zeta}}\right) \\
 \frac{\partial \omega_{n}}{\partial k_{y}} &= \frac{\partial \omega_{n}}{\partial k_{\zeta}} \sin{\phi} + \frac{\partial \omega_{n}}{\partial \phi} \left(\frac{\cos{\phi}}{k_{\zeta}}\right).
 \end{align}
+
 \section{Configuring boris}
+boris is configured via ``set\_{}the\_{}boris.py".
 \section{Running boris}
+boris is most conveniently run at the command-line. 
+Simply cd into the directory containing ``boris.py" and ``set\_{}the\_{}boris.py" and run ``python boris.py". 
+You may wish to redirect standard out to capture the dialogue boris prints as it runs, though all physically relevant parameters are printed as comments to the corresponding output files. 
+Also helpful is ``time python boris.py".
 \section{Plotting output}
 
 \end{document}
