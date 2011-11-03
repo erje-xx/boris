@@ -75,13 +75,15 @@ In that case,
 
 \section{Configuring boris}
 boris is configured via ``set\_{}the\_{}boris.py".
+\subsection{Units}
+At present, boris requires input in a hodgepodge of units. We are transitioning to SI units. In the meantime, see the comments in ``set\_{}the\_{}boris.py" for the correct units.
 \section{Running boris}
 boris is most conveniently run at the command-line. 
 Simply cd into the directory containing ``boris.py" and ``set\_{}the\_{}boris.py" and run ``python boris.py". 
 You may wish to redirect standard out to capture the dialogue boris prints as it runs, though all physically relevant parameters are printed as comments to the corresponding output files. 
 Also helpful is ``time python boris.py".
 \section{Plotting output}
-In boris' default working directory, there are a number of gnuplot files to automate plotting the output files.
+In boris' default working directory, there are a number of gnuplot files to automate plotting the output files. In particular, see ``phase.gpl", ``amplitude.gpl", ``ssurface.gpl", and ``dispersion\_{}surface.gpl".
 
 \end{document}
 
