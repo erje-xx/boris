@@ -36,32 +36,30 @@ For fixed $\theta$, equation (\ref{dispersion_main}) may be regarded as an equat
 We calculate the derivative of $\frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$ which is related to $\frac{\partial \omega_{n}}{\partial k_{\zeta}} = \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$. For notational convenience, we define 
 \begin{align}
 R &= \omega_{H} + \alpha \omega_{M} k_{n}^2 \\
-S &= \frac{\omega_{M} P_{nn} (1 - P_{nn}) \sin^2{\phi}}{R} \\
+S &= \frac{\omega_{M} P_{nn} (1 - P_{nn}) \sin^2{\theta}}{R} \\
 E &= \omega_{M} \sin^2{\theta} \sin^2{\phi}.
 \end{align}
 Then, we have
 \begin{align}
 \omega_{n} &= \sqrt{R(R + \omega_{M} F_{nn})} \\
-\frac{\partial R}{\partial k_{\zeta}} &= 2  \alpha \omega_{M} k_{\zeta} \\
-\frac{\partial \omega_{n}^2}{\partial k_{\zeta}} &= \frac{\partial R}{\partial k_{\zeta}} \left[2R + \omega_{M} F_{nn} \right] + \omega_{M} R \frac{\partial F_{nn}}{\partial k_{\zeta}}.
+\frac{\partial \omega_{n}^2}{\partial k_{\zeta}} &= 2  \alpha \omega_{M} k_{\zeta} \left[2R + \omega_{M} F_{nn} \right] + \omega_{M} R \frac{\partial F_{nn}}{\partial k_{\zeta}}.
 \end{align}
 Now, we calculate
 \begin{align}
-\frac{\partial F_{n}}{\partial k_{\zeta}} &= \frac{-2}{k_{\zeta}^2 L} + \frac{2 (-1)^n e^{-k_{\zeta} L}}{k_{\zeta}^2 L} + \frac{2 (-1)^n e^{-k_{\zeta} L}}{k_{\zeta}} \\
-\frac{\partial P_{nn}}{\partial k_{\zeta}} &= 2 \frac{k_{\zeta}}{k_{n}^{2}} - 2 \frac{k_{\zeta}^3}{k_{n}^{4}} - 4 \frac{k_{\zeta}^3}{k_{n}^{4}}   F_{n} B +  \\
-&+ 4 \frac{k_{\zeta}^5}{k_{n}^{6}} F_{n} B - \frac{k_{\zeta}^4}{k_{n}^{4}} B \frac{\partial F_{n}}{\partial k_{\zeta}} \nonumber
+\frac{\partial P_{nn}}{\partial k_{\zeta}} &= 2 \frac{k_{\zeta}}{k_{n}^{2}} - 2 \frac{k_{\zeta}^3}{k_{n}^{4}} - 4 \frac{k_{\zeta}^3}{k_{n}^{4}}   F_{n} B + 4 \frac{k_{\zeta}^5}{k_{n}^{6}} F_{n} B - \frac{k_{\zeta}^4}{k_{n}^{4}} B \frac{\partial F_{n}}{\partial k_{\zeta}} \\
+\frac{\partial F_{n}}{\partial k_{\zeta}} &= \frac{-2}{k_{\zeta}^2 L} + \frac{2 (-1)^n e^{-k_{\zeta} L}}{k_{\zeta}^2 L} + \frac{2 (-1)^n e^{-k_{\zeta} L}}{k_{\zeta}}
 \end{align}
 where we have defined $B = \frac{1}{2}$ if $n=0$ and $B=1$ if $n \neq 0$.
 Now we have
 \begin{align}
-\frac{\partial F_{nn}}{\partial k_{\zeta}} &= \frac{\partial P_{nn}}{\partial k_{\zeta}} - \frac{\partial P_{nn}}{\partial k_{\zeta}} \sin^2{\theta} (1 + \cos^2{\phi}) - (R^{-2}) E P_{nn} \frac{\partial R}{\partial k_{\zeta}} + \\
-&+ (R^{-1}) E \frac{\partial P_{nn}}{\partial k_{\zeta}}  + (R^{-2}) E P_{nn}^2 \frac{\partial R}{\partial k_{\zeta}} - 2 (R^{-1}) E P_{nn} \frac{\partial P_{nn}}{\partial k_{\zeta}} \nonumber
+\frac{\partial F_{nn}}{\partial k_{\zeta}} &= \frac{\partial P_{nn}}{\partial k_{\zeta}} - \frac{\partial P_{nn}}{\partial k_{\zeta}} \sin^2{\theta} (1 + \cos^2{\phi}) - \frac{E P_{nn}}{R^2} \frac{\partial R}{\partial k_{\zeta}} + \\
+&+ \frac{E}{R} \frac{\partial P_{nn}}{\partial k_{\zeta}}  + \frac{E P_{nn}^2}{R^2} \frac{\partial R}{\partial k_{\zeta}} - \frac{2 E P_{nn}}{R} \frac{\partial P_{nn}}{\partial k_{\zeta}} \nonumber
 \end{align}
 which completes the expression for $\frac{\partial \omega_{n}}{\partial k_{\zeta}}$. For $\frac{\partial \omega_{n}}{\partial \phi}$, we find
 \begin{align}
 \frac{\partial \omega_{n}}{\partial \phi} &= \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial \phi} \\
 \frac{\partial \omega_{n}^2}{\partial \phi} &= R \omega_{M} \frac{\partial F_{nn}}{\partial \phi} \\
-\frac{\partial F_{nn}}{\partial \phi} &= \cos{2\phi} \left[ P_{nn} \sin^2{\theta} + S \right].
+\frac{\partial F_{nn}}{\partial \phi} &= P_{nn} \sin^2{\theta} \sin{2\phi} \left[ 1 + \frac{\omega_{M} P_{nn} (1 - P_{nn})}{\omega_{H} + \alpha \omega_{M} k_{n}^2} \right].
 \end{align}
 We may translate these results to rectangular coordinates. In that case, $\vec{v}_{g} = \vec{\nabla} \omega_{n} = \frac{\partial \omega_{n}}{\partial k_{z}} \hat{z} + \frac{\partial \omega_{n}}{\partial k_{y}} \hat{y}$. We have as relations
 \begin{align}
@@ -83,6 +81,7 @@ Simply cd into the directory containing ``boris.py" and ``set\_{}the\_{}boris.py
 You may wish to redirect standard out to capture the dialogue boris prints as it runs, though all physically relevant parameters are printed as comments to the corresponding output files. 
 Also helpful is ``time python boris.py".
 \section{Plotting output}
+In boris' default working directory, there are a number of gnuplot files to automate plotting the output files.
 
 \end{document}
 

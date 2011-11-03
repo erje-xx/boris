@@ -56,10 +56,15 @@ We insert a factor into the sum in equation (\ref{dft_mag}), namely
 \begin{equation}
 \text{exp}\left(\frac{-|\vec{r}| \omega_{r}}{|\hat{r} \cdot \vec{v}_{g}(k_{z},k_{y}) |}\right)
 \end{equation}
-to reflect the anisotropic damping (following Sergej). 
-The position vector $\vec{r} = (z,y)$ is the point at which the dynamic magnetization is being calculated. 
+to reflect the anisotropic damping. 
+The position vector $\vec{r} = (z,y)$  the point at which the dynamic magnetization is being calculated. 
 The symbol $\hat{r} = \left(\frac{z}{\sqrt{z^2+y^2}},\frac{y}{\sqrt{z^2+y^2}}\right)$ represents the unit vector parallel to $\vec{r}$. 
 The spin-wave relaxation rate is $\omega_{r}$, given by $\omega_{r} = \alpha (\omega_{H} + \frac{\omega_{M}}{2})$.
+In other words, we define the weights, now with spatial dependence, of the 2D spectrum to be
+\begin{align}
+F[k_{z},k_{y}] &= \text{exp}\left(\frac{-|\vec{r}| \omega_{r}}{|\hat{r} \cdot \vec{v}_{g}(k_{z},k_{y}) |}\right) \text{  } \forall (k_{z},k_{y}) \in S.S. \\
+&= 0 \text{ otherwise.} \nonumber
+\end{align}
 
 Gathering together the parts, we have
 \begin{equation}

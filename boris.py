@@ -667,7 +667,8 @@ def dwdk(kzeta, phi, Ms, H, d, gamma, alpha, L, theta, k_max, n):
 	# Have to multiply by 2pi, since we work with the gyromagnetic ratio
 	# in Hz/Oe...i.e. we work with normal gamma divided by 2pi
 	dwdkzeta = 2*pi*(1/(2*omega))*dbetadk
-	dwdphi = 2*pi*(1/(2*omega))*Q*wm*math.cos(2*phi)*(Pnn*math.sin(theta)*math.sin(theta) + M)
+	# note change due to henning's check, compare with previous results
+	dwdphi = 2*pi*(1/(2*omega))*Q*wm*math.sin(2*phi)*(Pnn*math.sin(theta)*math.sin(theta) + M)
 
 	dwdkz = dwdkzeta*(math.cos(phi)) - (1/kzeta)*dwdphi*math.sin(phi)
 	dwdky = dwdkzeta*(math.sin(phi)) + (1/kzeta)*dwdphi*math.cos(phi)
