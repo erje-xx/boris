@@ -41,6 +41,8 @@ def boris_calculates():
 			group_velocity_test = float(form_line[1].strip())
 		elif form_line[0].strip() == "POINT_SOURCE":
 			point_source_test = float(form_line[1].strip())
+		elif form_line[0].strip() == "SLOWNESS_SURFACE_EXPERIMENTAL":
+			ssurface_experimental = float(form_line[1].strip())
 		elif form_line[0].strip() == "POINT_SOURCE_SPECTRUM":
 			# We want to remove any leading "/" they might give us
 			POINT_SOURCE_SPECTRUM = form_line[1].strip('./\n ')
@@ -114,6 +116,15 @@ def boris_calculates():
 		file_header_prep(WORKING_DIRECTORY, vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
 		slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+
+	if abs(ssurface_experimental) != 0:
+		ssurface_filename = WORKING_DIRECTORY + 'slowness_surface_equal.dat'
+		vector_filename = WORKING_DIRECTORY + 'slowness_surface_equal_vector.dat'
+
+		#file_header_prep(WORKING_DIRECTORY, ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+		#file_header_prep(WORKING_DIRECTORY, vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
+
+		slowness_surface_equal_new(ssurface_filename, vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected)
 
 	if abs(point_source_test) != 0:
 		data_filename = WORKING_DIRECTORY + POINT_SOURCE_SPECTRUM
@@ -417,6 +428,105 @@ def slowness_surface_equal(ssurface_filename, vector_filename, Ms, H, d, gamma, 
 	print('Done calculating slowness surface!')
 	return
 
+def slowness_surface_equal_new(ssurface_filename, vector_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
+	slowness_surface_equal_vector_out = open(vector_filename, 'a')
+
+	pi = math.pi
+
+	epsilon = freq/10**4
+
+	print('Calculating slowness surface (exp!) at frequency: ' + str(freq*10**-9) + ' GHz')
+	print('epsilon: ' + str(epsilon*10**-9) + ' GHz')
+
+	wh = gamma*H
+	wm = gamma*Ms
+	if abs(freq -math.sqrt(wh*(wh + wm))) < epsilon:
+		print("Entered frequency is FMR frequency!")
+		ky_init = 0.0
+		kz_init = 0.0
+
+	k_max = (2*pi/L)*k_max
+	delta_k = (2*pi/L)/1e3
+	bounds = [0.0,k_max]
+	been_below_freq = False
+	been_above_freq = False
+
+	kzeta = 0.0
+	phi = pi/2
+
+	didnt_find_it = 1
+	while kzeta <= bounds[1] and kzeta >= bounds[0]:
+
+		omg_temp = omega_n(kzeta, phi, Ms, H, d, gamma, alpha, theta, trans_n)
+
+		if abs(omg_temp - freq) < epsilon:
+			print('Found initial ky, kz...starting along slowness surface...')
+			k_init = kzeta
+			phi_init = phi
+			print('kzeta: ' + str(kzeta))
+			print('phi: ' + str(phi))
+			didnt_find_it = 0
+			break
+		if (omg_temp - freq) < 0:
+			been_below_freq = True
+			if been_below_freq and been_above_freq:
+				bounds = [kzeta-delta_k,kzeta]
+				kzeta = kzeta - delta_k
+				delta_k = delta_k/10
+		if (omg_temp - freq) > 0:
+			been_above_freq = True
+			if been_below_freq and been_above_freq:
+				bounds = [kzeta-delta_k,kzeta]
+				kzeta = kzeta - delta_k
+				delta_k = delta_k/10
+
+		kzeta = kzeta + delta_k
+
+	if didnt_find_it == 1:
+		k_max = (2*pi/L)*k_max
+		delta_k = (2*pi/L)
+		bounds = [0.0,k_max]
+		been_below_freq = False
+		been_above_freq = False
+
+		kzeta = 0.0
+		phi = 0.0
+		while kzeta <= bounds[1] and kzeta >= bounds[0]:
+	
+			omg_temp = omega_n(kzeta, phi, Ms, H, d, gamma, alpha, theta, trans_n)
+	
+			if abs(omg_temp - freq) < epsilon:
+				print('Found initial ky, kz...starting along slowness surface...')
+				k_init = kzeta
+				phi_init = phi
+				print('kzeta: ' + str(kzeta))
+				print('phi: ' + str(phi))
+				print('omg_temp: ' + str(omg_temp))
+				print('freq: ' + str(freq))
+				break
+			if kzeta > k_max:
+				didnt_find_it = 1
+				print('No wavevector on the slowness surface up to wavevector k_max has been found')
+				return
+			if (omg_temp - freq) < 0:
+				been_below_freq = True
+				if been_below_freq and been_above_freq:
+					print("Been there done that")
+					bounds = [kzeta-delta_k,kzeta]
+					delta_k = delta_k/10
+			if (omg_temp - freq) > 0:
+				#print('kzeta: ' + str(kzeta))
+				#print('omg_temp: ' + str(omg_temp))
+				#print('freq: ' + str(freq))
+				#print('kzeta/kmax: ' + str(kzeta/k_max) + '\n')
+				been_above_freq = True
+				if been_below_freq and been_above_freq:
+					bounds = [kzeta-delta_k,kzeta]
+					delta_k = delta_k/10
+			kzeta = kzeta + delta_k
+
+	return
+
 def point_source(ref_ssurface_filename, Ms, H, d, gamma, alpha, theta, trans_n, freq, k_max, L, phi_selected):
 	print('Calculating emission pattern')
 
@@ -578,8 +688,8 @@ def omega_n(kzeta, phi, Ms, H, d, gamma, alpha, theta, n):
 	wm = gamma*Ms
 
 	# Exception for FMR
-	#if kzeta == 0.0:
-		#return math.sqrt(wh*(wh + wm))
+	if kzeta == 0.0:
+		return math.sqrt(wh*(wh + wm))
 	
 	kappa_n = n*pi/d
 	kn = math.sqrt(kzeta**2 + kappa_n**2)
