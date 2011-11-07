@@ -76,12 +76,14 @@ In that case,
 \end{align}
 
 \subsection{Second derivatives}
-In order to calculate the magnon effective mass, we need the second derivatives of $\omega_{n}$ with respect to $k_{\zeta}$ and $\phi$.
-
+In order to calculate the magnon effective mass, we need the second derivatives of $\omega_{n}$ with respect to $k_{\zeta}$ and $\phi$. We begin, as before, by considering the derivative of $\frac{\partial^2 \omega_{n}}{\partial k_{\zeta}^2}$:
 \begin{align}
 \frac{\partial^2 \omega_{n}}{\partial k_{\zeta}^2} &= \frac{1}{2 \omega_{n}} \frac{\partial^2 \omega_{n}^2}{\partial k_{\zeta}^2} - \frac{1}{\omega_{n}} \left(\frac{\partial \omega_{n}}{\partial k_{\zeta}}\right)^2 \\
 \frac{\partial^2 \omega_{n}^2}{\partial k_{\zeta}^2} &= \left[2R + \omega_{M} F_{nn} \right] \frac{\partial^2 R}{\partial k_{\zeta}^2} + R \omega_{M} \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2} + \left[ 2 \frac{\partial R}{\partial k_{\zeta}} + 2 \omega_{M} \frac{\partial F_{nn}}{\partial k_{\zeta}} \right] \frac{\partial R}{\partial k_{\zeta}} \\
-\frac{\partial^2 R}{\partial k_{\zeta}^2} &= 2 \alpha \omega_{M} \\
+\frac{\partial^2 R}{\partial k_{\zeta}^2} &= 2 \alpha \omega_{M}.
+\end{align}
+Therefore, we see that, when recalling the expressions we have already obtained in the calculation of the group velocity, the problem is reduced to the calculation of $\frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}$. We have already found $\frac{\partial F_{nn}}{\partial k_{\zeta}}$, so we calculate the second derivative with respect to $k_{\zeta}$ term-by-term,
+\begin{align}
 \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2} &= \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{1} + \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{2} + \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{3} + \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{4} + \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{5} + \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{6} \\
 \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{1} &=\frac{\partial}{\partial k_{\zeta}} \frac{\partial P_{nn}}{\partial k_{\zeta}} = \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2} \\
 \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{2} &= \frac{\partial}{\partial k_{\zeta}} \left[ - \frac{\partial P_{nn}}{\partial k_{\zeta}}  \sin^2{\theta} (1 + \cos^2{\phi}) \right] \\
@@ -92,48 +94,56 @@ In order to calculate the magnon effective mass, we need the second derivatives 
 \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{5} &= \frac{\partial}{\partial k_{\zeta}} \left[ \frac{1}{R^2} E P_{nn}^2 \frac{\partial R}{\partial k_{\zeta}} \right] \\
 &= -2 \frac{1}{R^3} E P_{nn}^2 \left(\frac{\partial R}{\partial k_{\zeta}}\right)^2 + 2 \frac{1}{R^2} E P_{nn} \frac{\partial R}{\partial k_{\zeta}} \frac{\partial P_{nn}}{\partial k_{\zeta}} + \frac{1}{R^2} E P_{nn}^2 \frac{\partial^2 R}{\partial k_{\zeta}^2} \\
 \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{6} &= \frac{\partial}{\partial k_{\zeta}} \left[-2 \frac{1}{R} E P_{nn} \frac{\partial P_{nn}}{\partial k_{\zeta}} \right] \\
-&= 2 \frac{1}{R^2} E P_{nn} \frac{\partial R}{\partial k_{\zeta}} \frac{\partial P_{nn}}{\partial k_{\zeta}} - 2 \frac{1}{R} E \left(\frac{\partial P_{nn}}{\partial k_{\zeta}} \right)^2 - 2 \frac{1}{R} E P_{nn} \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2} \\
+&= 2 \frac{1}{R^2} E P_{nn} \frac{\partial R}{\partial k_{\zeta}} \frac{\partial P_{nn}}{\partial k_{\zeta}} - 2 \frac{1}{R} E \left(\frac{\partial P_{nn}}{\partial k_{\zeta}} \right)^2 - 2 \frac{1}{R} E P_{nn} \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}.
+\end{align}
+Calculating $\frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}$ in turn reduces to the calculating $\frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}$, which we also carry out term-by-term from our expression for $\frac{\partial P_{nn}}{\partial k_{\zeta}}$,
+\begin{align}
 \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2} &= \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{1} + \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{2} + \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{3} + \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{4} + \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{5} \\
 \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{1} &= \frac{\partial}{\partial k_{\zeta}} \left[2 \frac{k_{\zeta}}{k_{n}^2} \right] = \frac{2}{k_{n}^2} - 4 \frac{k_{\zeta}}{k_{n}^3} \frac{\partial k_{n}}{\partial k_{\zeta}} \\
 \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{2} &= \frac{\partial}{\partial k_{\zeta}} \left[-2 \frac{k_{\zeta}^2}{k_{n}^3} \frac{\partial k_{n}}{\partial k_{\zeta}} \right] \\
-&= - 4 \frac{k_{\zeta}}{k_{n}^3} \frac{\partial k_{n}}{\partial k_{\zeta}} + 6 \frac{k_{\zeta}}{k_{n}^4} \left(\frac{\partial k_{n}}{\partial k_{\zeta}} \right)^2 - 2 \frac{k_{\zeta}^2}{k_{n}^3} \frac{\partial^2 k_{n}}{\partial k_{\zeta}^2}
-\end{align}
-
-\begin{align}
+&= - 4 \frac{k_{\zeta}}{k_{n}^3} \frac{\partial k_{n}}{\partial k_{\zeta}} + 6 \frac{k_{\zeta}}{k_{n}^4} \left(\frac{\partial k_{n}}{\partial k_{\zeta}} \right)^2 - 2 \frac{k_{\zeta}^2}{k_{n}^3} \frac{\partial^2 k_{n}}{\partial k_{\zeta}^2} \\
 \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{3} &= \frac{\partial}{\partial k_{\zeta}} \left[-4 \frac{k_{\zeta}^3}{k_{n}^4} F_{n} B \right] \\
 &= -12 \frac{k_{\zeta}^2}{k_{n}^4} F_{n} B + 16 \frac{k_{\zeta}^3}{k_{n}^5} F_{n} B \frac{\partial k_{n}}{\partial k_{\zeta}} - 4 \\
 \frac{k_{\zeta}^3}{k_{n}^4} B \frac{\partial F_{n}}{\partial k_{\zeta}} \\
 \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{4} &= \frac{\partial}{\partial k_{\zeta}} \left[ 4 \frac{k_{\zeta}^4}{k_{n}^5} F_{n} B \frac{\partial k_{n}}{\partial k_{\zeta}} \right] \\
 &= 16 \frac{k_{\zeta}^3}{k_{n}^5} F_{n} B \frac{\partial k_{n}}{\partial k_{\zeta}} - 20 \frac{k_{\zeta}^4}{k_{n}^6} F_{n} B \left( \frac{\partial k_{n}}{\partial k_{\zeta}^2} \right)^2 + 4 \frac{k_{\zeta}^4}{k_{n}^5} B \frac{\partial k_{n}}{\partial k_{\zeta}} \frac{\partial F_{n}}{\partial k_{\zeta}} + 4 \frac{k_{\zeta}^4}{k_{n}^5} F_{n} B \frac{\partial^2 k_{n}}{\partial k_{\zeta}^2} \\
 \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{5} &= \frac{\partial}{\partial k_{\zeta}} \left[ - \frac{k_{\zeta}^4}{k_{n}^4} B \frac{\partial F_{n}}{\partial k_{\zeta}} \right] \\
-&= -4 \frac{k_{\zeta}^3}{k_{n}^4} B \frac{\partial F_{n}}{\partial k_{\zeta}} + 4 \frac{k_{\zeta}^4}{k_{n}^5} B \frac{\partial F_{n}}{\partial k_{\zeta}} \frac{\partial k_{n}}{\partial k_{\zeta}} - \frac{k_{\zeta}^4}{k_{n}^4} B \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2} \\
+&= -4 \frac{k_{\zeta}^3}{k_{n}^4} B \frac{\partial F_{n}}{\partial k_{\zeta}} + 4 \frac{k_{\zeta}^4}{k_{n}^5} B \frac{\partial F_{n}}{\partial k_{\zeta}} \frac{\partial k_{n}}{\partial k_{\zeta}} - \frac{k_{\zeta}^4}{k_{n}^4} B \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}.
+\end{align}
+Lastly, we see we must calculate $\frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}$,
+\begin{align}
 \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2} &= \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{1} + \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{2} + \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{3} \\
 \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{1} &= \frac{\partial}{\partial k_{\zeta}} \left[-2 \frac{1}{k_{\zeta}L} \right]= 4 \frac{1}{k_{\zeta}^3 L} \\
 \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{2} &= \frac{\partial}{\partial k_{\zeta}} \left[ 2 (-1)^n \frac{1}{k_{\zeta}^2 L} e^{-k_{\zeta} L } \right] \\
 &= 4 (-1)^n \frac{1}{k_{\zeta}^3 L} e^{-k_{\zeta} L} - 2 (-1)^n \frac{1}{k_{\zeta}^2} e^{- k_{\zeta} L} \\
 \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{3} &= \frac{\partial}{\partial k_{\zeta}} \left[ 2 (-1)^n \frac{1}{k_{\zeta}} e^{- k_{\zeta} L } \right] \\
-&= -2 (-1)^n \frac{1}{k_{\zeta}^2} e^{- k_{\zeta} L } - 2L (-1)^n \frac{1}{k_{\zeta}} e^{- k_{\zeta} L}
+&= -2 (-1)^n \frac{1}{k_{\zeta}^2} e^{- k_{\zeta} L } - 2L (-1)^n \frac{1}{k_{\zeta}} e^{- k_{\zeta} L}.
 \end{align}
+The derivative of $k_{n}$ with respect to $k_{\zeta}$ is relatively simple,
 \begin{align}
 \frac{\partial k_{n}}{\partial k_{\zeta}} &= \frac{k_{\zeta}}{k_{n}} \\
-\frac{\partial k_{n}}{\partial k_{\zeta}} &= \frac{1}{k_{n}} - \frac{k_{\zeta}^2}{k_{n}^3}
+\frac{\partial k_{n}}{\partial k_{\zeta}} &= \frac{1}{k_{n}} - \frac{k_{\zeta}^2}{k_{n}^3}.
 \end{align}
+Now, we must calculate the second order derivative of $\omega_{n}$ with respect to $\phi$,
 \begin{align}
 \frac{\partial^2 \omega_{n}}{\partial \phi^2} &= \frac{1}{2 \omega_{n}} \frac{\partial^2 \omega_{n}^2}{\partial \phi^2} - \frac{1}{\omega_{n}} \left(\frac{\partial \omega_{n}}{\partial \phi}\right)^2 \\
 \frac{\partial^2 \omega_{n}}{\partial \phi^2} &= R \omega_{M} \frac{\partial^2 F_{nn}}{\partial \phi^2} \\
-\frac{\partial^2 F_{nn}}{\partial \phi^2} &= 2 \sin{2\phi} \left( P_{nn} \sin^2{\theta} + \frac{\omega_{M} P_{nn} (1-P_{nn}) \sin^2{\theta}}{R} \right)  \\
+\frac{\partial^2 F_{nn}}{\partial \phi^2} &= 2 \sin{2\phi} \left( P_{nn} \sin^2{\theta} + \frac{\omega_{M} P_{nn} (1-P_{nn}) \sin^2{\theta}}{R} \right).
 \end{align}
+And finally the mixed-derivatives,
 \begin{align}
 \frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi} &= \frac{\partial^2 \omega_{n}}{\partial \phi \partial k_{\zeta}} = \frac{\partial}{\partial k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} = \frac{\partial}{\partial k_{\zeta}} \left[\frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial \phi} \right] \\
 &= \frac{\partial}{\partial k_{\zeta}} \left[\frac{1}{2 \omega_{n}} R P_{nn} \omega_{M} \sin{2\phi} \sin^2{\theta} + \frac{1}{2 \omega_{n}} R \omega_{M}^2 \sin^2{2 \phi} \frac{P_{nn} (1 - P_{nn}) \sin^2{\theta}}{R} \right] \\
 \frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi} &= \frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi}\bigg|_{1} + \frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi}\bigg|_{2} \\
 \frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi}\bigg|_{1} &= \frac{-T}{2 \omega_{n}^2} R P_{nn} \frac{\partial \omega_{n}}{\partial k_{\zeta}} + \frac{T}{2 \omega_{n}} P_{nn} \frac{\partial R}{\partial k_{\zeta}} + \frac{R}{2 \omega_{n}} R \frac{\partial P_{nn}}{\partial k_{\zeta}} \\
-\frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi}\bigg|_{2} &= \frac{- U}{2\omega_{n}^2} \left[P_{nn} - P_{nn}^2 \right] \frac{\partial \omega_{n}}{\partial k_{\zeta}} + \frac{U}{2 \omega_{n}} \frac{\partial P_{nn}}{\partial k_{\zeta}} \left[1 - 2 P_{nn} \right]
+\frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi}\bigg|_{2} &= \frac{- U}{2\omega_{n}^2} \left[P_{nn} - P_{nn}^2 \right] \frac{\partial \omega_{n}}{\partial k_{\zeta}} + \frac{U}{2 \omega_{n}} \frac{\partial P_{nn}}{\partial k_{\zeta}} \left[1 - 2 P_{nn} \right].
 \end{align}
+The variables $T$ and $U$ have simply been defined for notational brevity:
 \begin{align}
 T &= \omega_{M} \sin{2 \phi} \sin^2{\theta} \\
-U &= \omega_{M}^2 \sin{2 \phi} \sin^2{\theta}
+U &= \omega_{M}^2 \sin{2 \phi} \sin^2{\theta}.
 \end{align}
+With these expressions at hand, we may calculate the magnon effective mass.
 
 \section{Configuring boris}
 boris is configured via ``set\_{}the\_{}boris.py".
