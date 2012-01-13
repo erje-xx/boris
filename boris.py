@@ -33,6 +33,8 @@ def boris_calculates():
 			trans_n = float(form_line[1].strip())
 		elif form_line[0].strip() == "DISPERSION":
 			dispersion_test = float(form_line[1].strip())
+		elif form_line[0].strip() == "DISPERSION_1D":
+			dispersion_1D_test = float(form_line[1].strip())
 		elif form_line[0].strip() == "SLOWNESS_SURFACE":
 			slowness_surface_test = float(form_line[1].strip())
 		elif form_line[0].strip() == "SLOWNESS_SURFACE_EQUAL":
@@ -91,6 +93,15 @@ def boris_calculates():
 		file_header_prep(WORKING_DIRECTORY, disp_surface_filename, Ms, H, L, gamma, alpha, theta, trans_n, freq, k_max, W, phi_selected)
 
 		dispersion_rect(disp_filename, disp_surface_filename, Ms, H, L, gamma, alpha, theta, trans_n, freq, k_max, W, phi_selected)
+
+	if abs(dispersion_1D_test) != 0:
+		disp_filename = WORKING_DIRECTORY + 'dispersion.dat'
+		#disp_surface_filename = WORKING_DIRECTORY + 'dispersion_surface.dat'
+
+		file_header_prep(WORKING_DIRECTORY, disp_filename, Ms, H, L, gamma, alpha, theta, trans_n, freq, k_max, W, phi_selected)
+		#file_header_prep(WORKING_DIRECTORY, disp_surface_filename, Ms, H, L, gamma, alpha, theta, trans_n, freq, k_max, W, phi_selected)
+
+		dispersion_1D(disp_filename, Ms, H, L, gamma, alpha, theta, trans_n, freq, k_max, W, phi_selected)
 
 	if abs(group_velocity_test) != 0:
 		gp_filename = WORKING_DIRECTORY + 'group_velocity_1D.dat'
@@ -212,6 +223,25 @@ def dispersion_rect(disp_filename, disp_surface_filename, Ms, H, L, gamma, alpha
 	dispersion_surface_out.close()
 	disp_out.close()
 	print('Done calculating dispersion surface!')
+	return
+
+def dispersion_1D(disp_filename, Ms, H, L, gamma, alpha, theta, trans_n, freq, k_max, W, phi_selected):
+	disp_out = open(disp_filename, 'a')
+
+	print('Calculating 1D dispersion...')
+
+	pi = math.pi
+	phi = phi_selected
+	
+	for i in range(0,int(k_max + 1)):
+		kzeta = 2*pi/W*i
+		omg_temp = omega_n(kzeta, phi, Ms, H, L, gamma, alpha, theta, trans_n)
+		# Frequency written to file in GHz, wavevector in inverse centimeters
+		# Step size determined by film thickness, equal to 2*pi/W
+		disp_out.write(str(kzeta*10**-2) + '\t' + str(omg_temp*10**-9) + '\n')
+
+	disp_out.close()
+	print('Done calculating 1D dispersion!')
 	return
 
 #def group_velocity(gp_filename, vf_filename, Ms, H, L, gamma, alpha, phi_selected, W, theta, k_max, n):
