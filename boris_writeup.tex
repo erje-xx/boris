@@ -6,18 +6,19 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-boris is a python module which calculates the dispersion characteristics of spin waves (SW) in ferromagnetic films based on the theory of Kalinikos and Slavin. Additionally, boris calculates the emission pattern of a SW point source contacting a ferromagnetic medium. 
+boris is a python module which calculates the dispersion characteristics of spin waves (SW) in ferromagnetic films based on the perturbation theory of Kalinikos and Slavin. Additionally, by calculating contours of the dispersion surface and via an inverse Fourier transform, boris calculates the emission pattern of a SW point source contacting a ferromagnetic medium. 
 \end{abstract}
 \section{Preliminaries}
-We first reproduce equations from Kalinikos and Slavin's original work that we have used for boris. We discuss boris' limitations; however, we do not discuss the theoretical limitations inhering in the theory of Kalinikos and Slavin (K \& S). The main result utilized by boris is the explicit expression for the spin-wave dispersion derived via perturbation theory. Namely,
+Kalinikos and Slavin (K \& S) have solved Maxwell's equation in the magnetostatic limit for a medium described by the linearised Landau-Lifshitz equation, subject to electromagnetic and ``exchange" boundary conditions. Using perturbation theory, K \& S have obtained an explicit expression for ``spin-waves" in the medium. Namely,
 \begin{equation}\label{dispersion_main}
 \omega_{n} = \sqrt{(\omega_{H} + \alpha \omega_{M} k_{n}^2)(\omega_{H} + \alpha \omega_{M} k_{n}^2 + \omega_{M} F_{nn})}
 \end{equation}
 where
 \begin{equation}
-F_{nn} = P_{nn} + \sin^2(\theta) \left(1 - P_{nn} \left( 1 + \cos^2{\phi}\right) + \omega_{M} \frac{P_{nn}(1-P_{nn})\sin^2{\phi}}{(\omega_{H} + \alpha \omega_{M} k_{n}^2)} \right)
+F_{nn} = P_{nn} + \sin^2{\theta} \left(1 - P_{nn} \left( 1 + \cos^2{\phi}\right) + \omega_{M} \frac{P_{nn}(1-P_{nn})\sin^2{\phi}}{(\omega_{H} + \alpha \omega_{M} k_{n}^2)} \right)
 \end{equation}
-and $k_{n}^2 = k_{\zeta}^2 + \kappa_{n}^2$. boris works exclusively in the approximation of totally unpinnned surface spins, for which $P_{nn}$ has the explicit expression
+and $k_{n}^2 = k_{\zeta}^2 + \kappa_{n}^2$. 
+We rely on the approximation of totally unpinnned surface spins, for which $P_{nn}$ has the explicit expression
 \begin{equation}
 P_{nn} = \frac{k_{\zeta}^2}{k_{n}^2} - \frac{k_{\zeta}^4}{k_{n}^4} F_{n} \frac{1}{(1 + \delta_{0n})}
 \end{equation}
@@ -26,14 +27,14 @@ whereby
 F_{n} = \frac{2}{k_{\zeta}L} [1 - (-1)^n e^{-k_{\zeta}L}].
 \end{equation}
 In this approximation, $\kappa_{n} = \frac{n \pi}{L}$ where $L$ is the film thickness. 
-Note that, here we write $P_{nn}$ in the diagonal approximation, wherein $n = n^{\prime}$. 
-Moreover, boris currently always sets $n = 0$.
+Moreover, we write $P_{nn}$ in the diagonal approximation, having taken $n = n^{\prime}$. 
+Lastly, we exclusively consider modes with a uniform profile across the film thickness, i.e. everywhere $n = 0$.
 
-K \& S utilize two coordinate systems. The first $(\xi,\eta,\zeta)$ system is oriented such that the $\xi$ direction lies parallel to the film normal vector, if the film is considered as a plane with $L=0$. The upper and lower surfaces of the film lie at $\xi = \frac{L}{2}$ and $\xi = \frac{-L}{2}$, respectively. Furthermore, the direction of spin-wave propagation is oriented along the $\zeta$ direction. The second $(x,y,z)$ system is oriented such that the $z$ axis lies parallel to the saturation magnetization $\vec{M}_{0}$ and the internal static magnetic field $\vec{H}_{i}$. The angle $\theta$ measures the rotation of the $z$ axis relative to the $\xi$ axis and takes values in the range $[0,\pi]$. The angle $\phi$ measures the rotation of the $z$ axis relative to the $\zeta$ axis and takes values in the range $[0, 2 \pi]$. If $\theta = \frac{\pi}{2}$, the $\vec{M}_{0}$ lies ``in-plane". If then $\phi = 0$, then $z \parallel \zeta$, i.e. $\vec{M}_{0} \parallel \vec{k}$. If instead $\phi = \frac{\pi}{2}$, then $z \parallel \eta$, i.e. $\vec{M}_{0} \perp \vec{k}$. Note that, by choosing the orientation of the axes, $\vec{k} = (0,0,k_{\zeta})$ in the $(\xi,\eta,\zeta)$ coordinate system.
+K \& S defined $\omega_{H} = \mu_{0} |g| H_{i}$ and $\omega_{M} = \mu_{0} |g| M_{0}$, where $\mu_{0}$ is the permeability of vacuum, $|g|$ is the gyromagnetic ratio, $H_{i}$ is the magnitude of the internal field, and $M_{0}$ is the magnitude of the saturation magnetization. The constant $\alpha$ is the exchange constant.
 
-Additionally defined are $\omega_{H} = \mu_{0} |g| H_{i}$ and $\omega_{M} = \mu_{0} |g| M_{0}$, where $\mu_{0}$ is the permeability of vacuum, $|g|$ is the gyromagnetic ratio, $H_{i}$ is the magnitude of the internal field, and $M_{0}$ is the magnitude of the saturation magnetization. The constant $\alpha$ is the exchange constant.
+K \& S utilize two coordinate systems. The first $(\xi,\eta,\zeta)$ system is oriented such that the $\xi$ direction lies parallel to the film normal vector, if the film is considered as a plane with $L=0$. The upper and lower surfaces of the film lie at $\xi = \frac{L}{2}$ and $\xi = \frac{-L}{2}$, respectively. Furthermore, the direction of spin-wave propagation is oriented along the $\zeta$ direction. The second $(x,y,z)$ system is oriented such that the $z$ axis lies parallel to the saturation magnetization $\vec{M}_{0}$ and the internal static magnetic field $\vec{H}_{i}$. The angle $\theta$ measures the rotation of the $z$ axis relative to the $\xi$ axis and takes values in the range $[0,\pi]$. The angle $\phi$ measures the rotation of the $z$ axis relative to the $\zeta$ axis and takes values in the range $[0, 2 \pi]$. If $\theta = \frac{\pi}{2}$, $\vec{M}_{0}$ lies ``in-plane". If then $\phi = 0$, then $z \parallel \zeta$, i.e. $\vec{M}_{0} \parallel \vec{k}$. If instead $\phi = \frac{\pi}{2}$, then $z \parallel \eta$, i.e. $\vec{M}_{0} \perp \vec{k}$. Note that, by choosing the orientation of the axes, $\vec{k} = (0,0,k_{\zeta})$ in the $(\xi,\eta,\zeta)$ coordinate system.
 
-For fixed $\theta$, equation (\ref{dispersion_main}) may be regarded as an equation in the polar coordinates $(k_{\zeta},\phi)$ for $\omega_{n}$. We may therefore use elementary techniques to derive the group velocity $\vec{v}_{g} = \vec{\nabla} \omega_{n} = \frac{\partial \omega_{n}}{\partial k_{\zeta}} \hat{k}_{\zeta} + \frac{1}{k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} \hat{\phi}$. We begin with $\frac{\partial \omega_{n}}{\partial k_{\zeta}}$.
+We consider the physical quantities $\omega_{H}$, $\omega_{M}$, $\alpha$, and $L$ to be constant. Then, for ``in-plane" oriented magnetization, i.e. for fixed $\theta = \frac{\pi}{2}$, equation (\ref{dispersion_main}) may be regarded as an equation in polar coordinates $(k_{\zeta},\phi)$ for $\omega_{n}$. We may therefore use elementary techniques to derive the group velocity $\vec{v}_{g} = \vec{\nabla} \omega_{n} = \frac{\partial \omega_{n}}{\partial k_{\zeta}} \hat{k}_{\zeta} + \frac{1}{k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} \hat{\phi}$. We begin with $\frac{\partial \omega_{n}}{\partial k_{\zeta}}$.
 
 We calculate the derivative of $\frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$ which is related to $\frac{\partial \omega_{n}}{\partial k_{\zeta}} = \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$. For notational convenience, we define 
 \begin{align}
