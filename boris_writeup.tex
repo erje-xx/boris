@@ -32,11 +32,11 @@ Lastly, we exclusively consider modes with a uniform profile across the film thi
 
 K \& S defined $\omega_{H} = \mu_{0} |g| H_{i}$ and $\omega_{M} = \mu_{0} |g| M_{0}$, where $\mu_{0}$ is the permeability of vacuum, $|g|$ is the gyromagnetic ratio, $H_{i}$ is the magnitude of the internal field, and $M_{0}$ is the magnitude of the saturation magnetization. The constant $\alpha$ is the exchange constant.
 
-K \& S utilize two coordinate systems. The first $(\xi,\eta,\zeta)$ system is oriented such that the $\xi$ direction lies parallel to the film normal vector, if the film is considered as a plane with $L=0$. The upper and lower surfaces of the film lie at $\xi = \frac{L}{2}$ and $\xi = \frac{-L}{2}$, respectively. Furthermore, the direction of spin-wave propagation is oriented along the $\zeta$ direction. The second $(x,y,z)$ system is oriented such that the $z$ axis lies parallel to the saturation magnetization $\vec{M}_{0}$ and the internal static magnetic field $\vec{H}_{i}$. The angle $\theta$ measures the rotation of the $z$ axis relative to the $\xi$ axis and takes values in the range $[0,\pi]$. The angle $\phi$ measures the rotation of the $z$ axis relative to the $\zeta$ axis and takes values in the range $[0, 2 \pi]$. If $\theta = \frac{\pi}{2}$, $\vec{M}_{0}$ lies ``in-plane". If then $\phi = 0$, then $z \parallel \zeta$, i.e. $\vec{M}_{0} \parallel \vec{k}$. If instead $\phi = \frac{\pi}{2}$, then $z \parallel \eta$, i.e. $\vec{M}_{0} \perp \vec{k}$. Note that, by choosing the orientation of the axes, $\vec{k} = (0,0,k_{\zeta})$ in the $(\xi,\eta,\zeta)$ coordinate system.
+K \& S utilize two coordinate systems. The first $(\xi,\eta,\zeta)$ system is oriented such that the $\xi$ direction lies parallel to the film normal vector, if the film is considered as a plane with $L=0$. The upper and lower surfaces of the film lie at $\xi = \frac{L}{2}$ and $\xi = \frac{-L}{2}$, respectively. Furthermore, the direction of spin-wave propagation is oriented along the $\zeta$ direction, i.e. $\vec{k} \parallel \hat{\zeta}$. The second $(x,y,z)$ system is oriented such that the $z$ axis lies parallel to the saturation magnetization $\vec{M}_{0}$ and the internal static magnetic field $\vec{H}_{i}$. The angle $\theta$ measures the rotation of the $z$ axis relative to the $\xi$ axis and takes values in the range $[0,\pi]$. The angle $\phi$ measures the rotation of the $z$ axis relative to the $\zeta$ axis and takes values in the range $[0, 2 \pi]$. If $\theta = \frac{\pi}{2}$, $\vec{M}_{0}$ lies ``in-plane". If then $\phi = 0$, then $\hat{z} \parallel \hat{\zeta}$, i.e. $\vec{M}_{0} \parallel \vec{k}$. If instead $\phi = \frac{\pi}{2}$, then $\hat{z} \parallel \hat{\eta}$, i.e. $\vec{M}_{0} \perp \vec{k}$. Note that, by choosing the orientation of the axes, $\vec{k} = (0,0,k_{\zeta})$ in the $(\xi,\eta,\zeta)$ coordinate system.
 
 We consider the physical quantities $\omega_{H}$, $\omega_{M}$, $\alpha$, and $L$ to be fixed. Then, for ``in-plane" oriented magnetization, i.e. for fixed $\theta = \frac{\pi}{2}$, equation (\ref{dispersion_main}) defines a spin-wave dispersion surface $\omega = \omega \left(k_{\parallel} , k_{\perp} \right)$. We have written $\left( k_{\parallel}, k_{\perp} \right)$ in place of $\left( k_{z} , k_{y} \right)$.
 
-We may use elementary techniques to derive the group velocity $\vec{v}_{g} = \vec{\nabla} \omega_{n} = \frac{\partial \omega_{n}}{\partial k_{\zeta}} \hat{k}_{\zeta} + \frac{1}{k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} \hat{\phi}$. We begin with $\frac{\partial \omega_{n}}{\partial k_{\zeta}}$.
+We derive the group velocity $\vec{v}_{g} = \nabla_{\vec{k}} \omega (\vec{k}) = \frac{\partial \omega_{n}}{\partial k_{\zeta}} \hat{k}_{\zeta} + \frac{1}{k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} \hat{\phi}$ (stationary phase approx?). 
 
 We calculate the derivative of $\frac{\partial \omega_{n}}{\partial k_{\zeta}} = \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$ via $\frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$. For notational convenience, we define 
 \begin{align}
@@ -66,7 +66,7 @@ which yields $\frac{\partial \omega_{n}}{\partial k_{\zeta}}$. For $\frac{\parti
 \frac{\partial \omega_{n}^2}{\partial \phi} &= R \omega_{M} \frac{\partial F_{nn}}{\partial \phi} \\
 \frac{\partial F_{nn}}{\partial \phi} &= P_{nn} \sin^2{\theta} \sin{2\phi} \left[ 1 + \frac{\omega_{M} (1 - P_{nn})}{\omega_{H} + \alpha \omega_{M} k_{n}^2} \right].
 \end{align}
-We may translate these results to rectangular coordinates. In that case, $\vec{v}_{g} = \vec{\nabla} \omega_{n} = \frac{\partial \omega_{n}}{\partial k_{z}} \hat{z} + \frac{\partial \omega_{n}}{\partial k_{y}} \hat{y}$. We have as relations
+We may translate these results to rectangular coordinates. In that case, $\vec{v}_{g} = \nabla_{\vec{k}} \omega (\vec{k}) = \frac{\partial \omega_{n}}{\partial k_{z}} \hat{z} + \frac{\partial \omega_{n}}{\partial k_{y}} \hat{y}$. We have as relations
 \begin{align}
 k_{\zeta} &= \sqrt{k_{z}^2 + k_{y}^2} \\
 k_{z} &= k_{\zeta} \cos{\phi} \\
@@ -79,13 +79,13 @@ From the chain rule,
 \end{align}
 
 \subsection{Second derivatives}
-In order to calculate the magnon effective mass, we need the second derivatives of $\omega_{n}$ with respect to $k_{\zeta}$ and $\phi$. We begin, as before, by considering the derivative of $\frac{\partial^2 \omega_{n}}{\partial k_{\zeta}^2}$:
+In order to calculate the magnon effective mass, we need the second derivatives of $\omega_{n}$ with respect to $k_{\zeta}$ and $\phi$. We proceed via $\frac{\partial^2 \omega_{n}}{\partial k_{\zeta}^2}$:
 \begin{align}
 \frac{\partial^2 \omega_{n}}{\partial k_{\zeta}^2} &= \frac{1}{2 \omega_{n}} \frac{\partial^2 \omega_{n}^2}{\partial k_{\zeta}^2} - \frac{1}{\omega_{n}} \left(\frac{\partial \omega_{n}}{\partial k_{\zeta}}\right)^2 \\
 \frac{\partial^2 \omega_{n}^2}{\partial k_{\zeta}^2} &= \left[2R + \omega_{M} F_{nn} \right] \frac{\partial^2 R}{\partial k_{\zeta}^2} + R \omega_{M} \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2} + \left[ 2 \frac{\partial R}{\partial k_{\zeta}} + 2 \omega_{M} \frac{\partial F_{nn}}{\partial k_{\zeta}} \right] \frac{\partial R}{\partial k_{\zeta}} \\
 \frac{\partial^2 R}{\partial k_{\zeta}^2} &= 2 \alpha \omega_{M}.
 \end{align}
-Therefore, we see that, when recalling the expressions we have already obtained in the calculation of the group velocity, the problem is reduced to the calculation of $\frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}$. We have already found $\frac{\partial F_{nn}}{\partial k_{\zeta}}$, so we calculate the second derivative with respect to $k_{\zeta}$ term-by-term,
+We lack only $\frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}$. Having $\frac{\partial F_{nn}}{\partial k_{\zeta}}$, we proceed term-by-term,
 \begin{align}
 \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2} &= \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{1} + \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{2} + \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{3} + \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{4} + \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{5} + \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{6} \\
 \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{1} &=\frac{\partial}{\partial k_{\zeta}} \frac{\partial P_{nn}}{\partial k_{\zeta}} = \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2} \\
@@ -99,7 +99,7 @@ Therefore, we see that, when recalling the expressions we have already obtained 
 \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}\bigg|_{6} &= \frac{\partial}{\partial k_{\zeta}} \left[-2 \frac{1}{R} E P_{nn} \frac{\partial P_{nn}}{\partial k_{\zeta}} \right] \\
 &= 2 \frac{1}{R^2} E P_{nn} \frac{\partial R}{\partial k_{\zeta}} \frac{\partial P_{nn}}{\partial k_{\zeta}} - 2 \frac{1}{R} E \left(\frac{\partial P_{nn}}{\partial k_{\zeta}} \right)^2 - 2 \frac{1}{R} E P_{nn} \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}.
 \end{align}
-Calculating $\frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}$ in turn reduces to the calculating $\frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}$, which we also carry out term-by-term from our expression for $\frac{\partial P_{nn}}{\partial k_{\zeta}}$,
+Hence we need $\frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}$. Having $\frac{\partial P_{nn}}{\partial k_{\zeta}}$, we proceed term-by-term,
 \begin{align}
 \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2} &= \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{1} + \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{2} + \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{3} + \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{4} + \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{5} \\
 \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{1} &= \frac{\partial}{\partial k_{\zeta}} \left[2 \frac{k_{\zeta}}{k_{n}^2} \right] = \frac{2}{k_{n}^2} - 4 \frac{k_{\zeta}}{k_{n}^3} \frac{\partial k_{n}}{\partial k_{\zeta}} \\
@@ -112,7 +112,7 @@ Calculating $\frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2}$ in turn reduces to 
 \frac{\partial^2 P_{nn}}{\partial k_{\zeta}^2}\bigg|_{5} &= \frac{\partial}{\partial k_{\zeta}} \left[ - \frac{k_{\zeta}^4}{k_{n}^4} B \frac{\partial F_{n}}{\partial k_{\zeta}} \right] \\
 &= -4 \frac{k_{\zeta}^3}{k_{n}^4} B \frac{\partial F_{n}}{\partial k_{\zeta}} + 4 \frac{k_{\zeta}^4}{k_{n}^5} B \frac{\partial F_{n}}{\partial k_{\zeta}} \frac{\partial k_{n}}{\partial k_{\zeta}} - \frac{k_{\zeta}^4}{k_{n}^4} B \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}.
 \end{align}
-Lastly, we see we must calculate $\frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}$,
+To conclude, we calculate $\frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}$,
 \begin{align}
 \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2} &= \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{1} + \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{2} + \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{3} \\
 \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{1} &= \frac{\partial}{\partial k_{\zeta}} \left[-2 \frac{1}{k_{\zeta}^2L} \right]= 4 \frac{1}{k_{\zeta}^3 L} \\
@@ -121,18 +121,18 @@ Lastly, we see we must calculate $\frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}$
 \frac{\partial^2 F_{n}}{\partial k_{\zeta}^2}\bigg|_{3} &= \frac{\partial}{\partial k_{\zeta}} \left[ 2 (-1)^n \frac{1}{k_{\zeta}} e^{- k_{\zeta} L } \right] \\
 &= -2 (-1)^n \frac{1}{k_{\zeta}^2} e^{- k_{\zeta} L } - 2L (-1)^n \frac{1}{k_{\zeta}} e^{- k_{\zeta} L}.
 \end{align}
-The derivative of $k_{n}$ with respect to $k_{\zeta}$ is straightforward,
+Note the derivative of $k_{n}$ with respect to $k_{\zeta}$,
 \begin{align}
 \frac{\partial k_{n}}{\partial k_{\zeta}} &= \frac{k_{\zeta}}{k_{n}} \\
 \frac{\partial^2 k_{n}}{\partial k_{\zeta}^2} &= \frac{1}{k_{n}} - \frac{k_{\zeta}^2}{k_{n}^3}.
 \end{align}
-Now, we must calculate the second order derivative of $\omega_{n}$ with respect to $\phi$,
+Now, we calculate $\frac{\partial^2 \omega_{n}}{\partial \phi^2}$,
 \begin{align}
 \frac{\partial^2 \omega_{n}}{\partial \phi^2} &= \frac{1}{2 \omega_{n}} \frac{\partial^2 \omega_{n}^2}{\partial \phi^2} - \frac{1}{\omega_{n}} \left(\frac{\partial \omega_{n}}{\partial \phi}\right)^2 \\
 \frac{\partial^2 \omega_{n}}{\partial \phi^2} &= R \omega_{M} \frac{\partial^2 F_{nn}}{\partial \phi^2} \\
 \frac{\partial^2 F_{nn}}{\partial \phi^2} &= 2 \cos{2\phi} \left( P_{nn} \sin^2{\theta} + \frac{\omega_{M} P_{nn} (1-P_{nn}) \sin^2{\theta}}{R} \right).
 \end{align}
-And finally the mixed-derivatives,
+Finally the mixed-derivatives,
 \begin{align}
 \frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi} &= \frac{\partial^2 \omega_{n}}{\partial \phi \partial k_{\zeta}} = \frac{\partial}{\partial k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} = \frac{\partial}{\partial k_{\zeta}} \left[\frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial \phi} \right] \\
 &= \frac{\partial}{\partial k_{\zeta}} \left[\frac{1}{2 \omega_{n}} R P_{nn} \omega_{M} \sin{2\phi} \sin^2{\theta} + \frac{1}{2 \omega_{n}} R \omega_{M}^2 \sin{2 \phi} \frac{P_{nn} (1 - P_{nn}) \sin^2{\theta}}{R} \right] \\
@@ -140,24 +140,12 @@ And finally the mixed-derivatives,
 \frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi}\bigg|_{1} &= \frac{-T}{2 \omega_{n}^2} R P_{nn} \frac{\partial \omega_{n}}{\partial k_{\zeta}} + \frac{T}{2 \omega_{n}} P_{nn} \frac{\partial R}{\partial k_{\zeta}} + \frac{T}{2 \omega_{n}} R \frac{\partial P_{nn}}{\partial k_{\zeta}} \\
 \frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi}\bigg|_{2} &= \frac{- U}{2\omega_{n}^2} \left[P_{nn} - P_{nn}^2 \right] \frac{\partial \omega_{n}}{\partial k_{\zeta}} + \frac{U}{2 \omega_{n}} \frac{\partial P_{nn}}{\partial k_{\zeta}} \left[1 - 2 P_{nn} \right].
 \end{align}
-The variables $T$ and $U$ have simply been defined for notational brevity:
+The variables $T$ and $U$ have been defined for notational brevity:
 \begin{align}
 T &= \omega_{M} \sin{2 \phi} \sin^2{\theta} \\
 U &= \omega_{M}^2 \sin{2 \phi} \sin^2{\theta}.
 \end{align}
-With these expressions at hand, we may calculate the magnon effective mass.
-
-\section{Configuring boris}
-boris is configured via ``set\_{}the\_{}boris.py".
-\subsection{Units}
-At present, boris requires input in a hodgepodge of units. We are transitioning to SI units. In the meantime, see the comments in ``set\_{}the\_{}boris.py" for the correct units.
-\section{Running boris}
-boris is most conveniently run at the command-line. 
-Simply cd into the directory containing ``boris.py" and ``set\_{}the\_{}boris.py" and run ``python boris.py". 
-You may wish to redirect standard out to capture the dialogue boris prints as it runs, though all physically relevant parameters are printed as comments to the corresponding output files. 
-Also helpful is ``time python boris.py".
-\section{Plotting output}
-In boris' default working directory, there are a number of gnuplot files to automate plotting the output files. In particular, see ``phase.gpl", ``amplitude.gpl", ``ssurface.gpl", and ``dispersion\_{}surface.gpl".
+Now we may calculate the magnon effective mass.
 
 \end{document}
 
