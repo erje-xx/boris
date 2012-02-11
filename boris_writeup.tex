@@ -9,7 +9,7 @@
 boris is a python module which calculates the dispersion characteristics of spin waves (SW) in ferromagnetic films based on the perturbation theory of Kalinikos and Slavin. Additionally, by calculating contours of the dispersion surface and via an inverse Fourier transform, boris calculates the emission pattern of a SW point source contacting a ferromagnetic medium. 
 \end{abstract}
 \section{Preliminaries}
-Kalinikos and Slavin (K \& S) have solved Maxwell's equation in the magnetostatic limit for a medium described by the linearised Landau-Lifshitz equation, subject to electromagnetic and ``exchange" boundary conditions. Using perturbation theory, K \& S have obtained an explicit expression for ``spin-waves" in the medium. To wit,
+Kalinikos and Slavin (K \& S) have solved Maxwell's equation in the magnetostatic limit for a medium described by the linearised Landau-Lifshitz equation, subject to electromagnetic and ``exchange" boundary conditions. Using perturbation theory, K \& S have obtained an explicit dispersion relation for ``spin-waves" in the medium. To wit,
 \begin{equation}\label{dispersion_main}
 \omega_{n} = \sqrt{(\omega_{H} + \alpha \omega_{M} k_{n}^2)(\omega_{H} + \alpha \omega_{M} k_{n}^2 + \omega_{M} F_{nn})}
 \end{equation}
@@ -17,7 +17,8 @@ where
 \begin{equation}
 F_{nn} = P_{nn} + \sin^2{\theta} \left(1 - P_{nn} \left( 1 + \cos^2{\phi}\right) + \omega_{M} \frac{P_{nn}(1-P_{nn})\sin^2{\phi}}{(\omega_{H} + \alpha \omega_{M} k_{n}^2)} \right)
 \end{equation}
-and $k_{n}^2 = k_{\zeta}^2 + \kappa_{n}^2$. 
+and $k_{n}^2 = k_{\zeta}^2 + \kappa_{n}^2$. K \& S defined $\omega_{H} = \mu_{0} |g| H_{i}$ and $\omega_{M} = \mu_{0} |g| M_{0}$, where $\mu_{0}$ is the permeability of vacuum, $|g|$ is the gyromagnetic ratio, $H_{i}$ is the magnitude of the internal field, and $M_{0}$ is the magnitude of the saturation magnetization. The constant $\alpha$ is the exchange constant.
+
 We rely on the approximation of totally unpinnned surface spins, for which $P_{nn}$ has the explicit expression
 \begin{equation}
 P_{nn} = \frac{k_{\zeta}^2}{k_{n}^2} - \frac{k_{\zeta}^4}{k_{n}^4} F_{n} \frac{1}{(1 + \delta_{0n})}
@@ -30,15 +31,24 @@ In this approximation, $\kappa_{n} = \frac{n \pi}{L}$ where $L$ is the film thic
 Moreover, we write $P_{nn}$ in the diagonal approximation, having taken $n = n^{\prime}$. 
 Lastly, we exclusively consider modes with a uniform profile across the film thickness, i.e. everywhere $n = 0$.
 
-K \& S defined $\omega_{H} = \mu_{0} |g| H_{i}$ and $\omega_{M} = \mu_{0} |g| M_{0}$, where $\mu_{0}$ is the permeability of vacuum, $|g|$ is the gyromagnetic ratio, $H_{i}$ is the magnitude of the internal field, and $M_{0}$ is the magnitude of the saturation magnetization. The constant $\alpha$ is the exchange constant.
-
 K \& S utilize two coordinate systems. The first $(\xi,\eta,\zeta)$ system is oriented such that the $\xi$ direction lies parallel to the film normal vector, if the film is considered as a plane with $L=0$. The upper and lower surfaces of the film lie at $\xi = \frac{L}{2}$ and $\xi = \frac{-L}{2}$, respectively. Furthermore, the direction of spin-wave propagation is oriented along the $\zeta$ direction, i.e. $\vec{k} \parallel \hat{\zeta}$. The second $(x,y,z)$ system is oriented such that the $z$ axis lies parallel to the saturation magnetization $\vec{M}_{0}$ and the internal static magnetic field $\vec{H}_{i}$. The angle $\theta$ measures the rotation of the $z$ axis relative to the $\xi$ axis and takes values in the range $[0,\pi]$. The angle $\phi$ measures the rotation of the $z$ axis relative to the $\zeta$ axis and takes values in the range $[0, 2 \pi]$. If $\theta = \frac{\pi}{2}$, $\vec{M}_{0}$ lies ``in-plane". If then $\phi = 0$, then $\hat{z} \parallel \hat{\zeta}$, i.e. $\vec{M}_{0} \parallel \vec{k}$. If instead $\phi = \frac{\pi}{2}$, then $\hat{z} \parallel \hat{\eta}$, i.e. $\vec{M}_{0} \perp \vec{k}$. Note that, by choosing the orientation of the axes, $\vec{k} = (0,0,k_{\zeta})$ in the $(\xi,\eta,\zeta)$ coordinate system.
 
-We consider the physical quantities $\omega_{H}$, $\omega_{M}$, $\alpha$, and $L$ to be fixed. Then, for ``in-plane" oriented magnetization, i.e. for fixed $\theta = \frac{\pi}{2}$, equation (\ref{dispersion_main}) defines a spin-wave dispersion surface $\omega = \omega \left(k_{\parallel} , k_{\perp} \right)$. We have written $\left( k_{\parallel}, k_{\perp} \right)$ in place of $\left( k_{z} , k_{y} \right)$.
+We consider the physical quantities $\omega_{H}$, $\omega_{M}$, $\alpha$, and $L$ to be fixed. Then, for ``in-plane" oriented magnetization, i.e. for fixed $\theta = \frac{\pi}{2}$, equation (\ref{dispersion_main}) defines a spin-wave dispersion surface 
+\begin{equation}
+\omega_{n} = \omega_{n} \left(k_{\parallel} , k_{\perp} \right).
+\end{equation} 
+We have written $\left( k_{\parallel}, k_{\perp} \right)$ in place of $\left( k_{z} , k_{y} \right)$ to denote the components of $\vec{k}$ relative to the external applied field.
 
-We derive the group velocity $\vec{v}_{g} = \nabla_{\vec{k}} \omega (\vec{k}) = \frac{\partial \omega_{n}}{\partial k_{\zeta}} \hat{k}_{\zeta} + \frac{1}{k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} \hat{\phi}$ (stationary phase approx?). 
+\subsection{Group velocity}
+We derive the group velocity,
+\begin{equation}
+\vec{v}_{g} = \nabla_{\vec{k}} \omega_{n} (\vec{k}) = \frac{\partial \omega_{n}}{\partial k_{\zeta}} \hat{k}_{\zeta} + \frac{1}{k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} \hat{\phi}
+\end{equation}
+first in polar coordinates (stationary phase approx?). 
 
-We calculate the derivative of $\frac{\partial \omega_{n}}{\partial k_{\zeta}} = \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$ via $\frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$. For notational convenience, we define 
+Curvature? Rotation of $\vec{v}_{g}$.
+
+We calculate the derivative $\frac{\partial \omega_{n}}{\partial k_{\zeta}} = \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$ via $\frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$. For notational convenience, we define 
 \begin{align}
 R &= \omega_{H} + \alpha \omega_{M} k_{n}^2 \\
 S &= \frac{\omega_{M} P_{nn} (1 - P_{nn}) \sin^2{\theta}}{R} \\
@@ -78,8 +88,14 @@ From the chain rule,
 \frac{\partial \omega_{n}}{\partial k_{y}} &= \frac{\partial \omega_{n}}{\partial k_{\zeta}} \sin{\phi} + \frac{\partial \omega_{n}}{\partial \phi} \left(\frac{\cos{\phi}}{k_{\zeta}}\right).
 \end{align}
 
-\subsection{Second derivatives}
-In order to calculate the magnon effective mass, we need the second derivatives of $\omega_{n}$ with respect to $k_{\zeta}$ and $\phi$. We proceed via $\frac{\partial^2 \omega_{n}}{\partial k_{\zeta}^2}$:
+\subsection{Magnon effective mass}
+Corpuscular picture, magnons. The magnon effective mass tensor has elements,
+\begin{equation}
+\left(\frac{1}{m}\right)_{\parallel , \perp} = \frac{1}{\hbar} \frac{\partial^2 \omega_{n}}{\partial k_{\parallel} \partial k_{\perp}}.
+\end{equation}
+Note that, besides the factor $\frac{1}{\hbar}$, the magnon effective mass tensor is the Hessian matrix of $\omega_{n} ( k_{\parallel} , k_{\perp} )$.
+
+Once again, we proceed via $\frac{\partial^2 \omega_{n}}{\partial k_{\zeta}^2}$:
 \begin{align}
 \frac{\partial^2 \omega_{n}}{\partial k_{\zeta}^2} &= \frac{1}{2 \omega_{n}} \frac{\partial^2 \omega_{n}^2}{\partial k_{\zeta}^2} - \frac{1}{\omega_{n}} \left(\frac{\partial \omega_{n}}{\partial k_{\zeta}}\right)^2 \\
 \frac{\partial^2 \omega_{n}^2}{\partial k_{\zeta}^2} &= \left[2R + \omega_{M} F_{nn} \right] \frac{\partial^2 R}{\partial k_{\zeta}^2} + R \omega_{M} \frac{\partial^2 F_{nn}}{\partial k_{\zeta}^2} + \left[ 2 \frac{\partial R}{\partial k_{\zeta}} + 2 \omega_{M} \frac{\partial F_{nn}}{\partial k_{\zeta}} \right] \frac{\partial R}{\partial k_{\zeta}} \\
@@ -145,10 +161,16 @@ The variables $T$ and $U$ have been defined for notational brevity:
 T &= \omega_{M} \sin{2 \phi} \sin^2{\theta} \\
 U &= \omega_{M}^2 \sin{2 \phi} \sin^2{\theta}.
 \end{align}
-Now we may calculate the magnon effective mass.
+Expression in Cartesian coordinates.
+
+\subsection{Density of modes/states}
+
+\section{Steering magnetostatic waves}
+Wave sources. Control of real-space wave source distribution. Phase dispersion. Anisotropic dispersion (origin: (bi-)gyrotopy). Control of spectrum of excitation. Directional emission for harmonic excitation.
+
+\subsection{Point source emission pattern}
 
 \end{document}
-
 
 % Figure and Figure Reference example
 %The resultant plot appears in Fig. \ref{fwhm_ampl} and as a log-log graph in Fig. \ref{fwhm_ampl_log}.
