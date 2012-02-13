@@ -91,7 +91,7 @@ print('Calculating dispersion surface')
 # dispersion surface from -k_max to k_max in both
 # direction, with a given step_size
 # Step-size factor
-ssf = 10000
+ssf = 1000
 # What follows works, but abomination much?
 c = zeros(( len(range(0, int(k_max + 1), int(k_max/ssf))), len(range(0, int(k_max + 1), int(k_max/ssf))) ))
 #c[::,100] = range(0, int(k_max + 1), 10)
@@ -118,16 +118,14 @@ print('Done calculating dispersion surface!')
 plt.subplot(224)
 print('Calculating slowness surface...')
 flip = c[::-1,:].copy()
-freq = 3.66*10**9
+freq = 3.4*10**9
 epsilon = 0.01*10**9
-print(min(flip.flat))
-print(max(flip.flat))
 for i in range(len(flip)):
 	for j in range(len(flip[i])):
 		if flip[i,j] < (freq - epsilon) or flip[i,j] > (freq + epsilon):
 			#print(flip[i,j])
 			flip[i,j] = 0
-plt.imshow(abs(fft.ifftshift(fft.ifft2(flip))))
+plt.imshow(abs(fft.ifftshift(fft.ifft2(flip)))**2)
 print('Done calculating slowness surface!')
 
 plt.show()
