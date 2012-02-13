@@ -6,10 +6,10 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-boris is a python module which calculates the dispersion characteristics of spin waves (SW) in ferromagnetic films based on the perturbation theory of Kalinikos and Slavin. Additionally, by calculating contours of the dispersion surface and via an inverse Fourier transform, boris calculates the emission pattern of a SW point source contacting a ferromagnetic medium. 
+boris is a python module which calculates the dispersion characteristics of spin waves (SW) in ferromagnetic films based on the perturbation theory of Kalinikos and Slavin (K\&{}S). Additionally, by calculating contours of the dispersion surface and via an inverse Fourier transform, boris calculates the emission pattern of a SW point source contacting a ferromagnetic medium. 
 \end{abstract}
 \section{Preliminaries}
-Kalinikos and Slavin (K \& S) have solved Maxwell's equation in the magnetostatic limit for a medium described by the linearised Landau-Lifshitz equation, subject to electromagnetic and ``exchange" boundary conditions. Using perturbation theory, K \& S have obtained an explicit dispersion relation for ``spin-waves" in the medium. To wit,
+K\&{}S \cite{K_1980, KS_1986} have solved Maxwell's equation in the magnetostatic limit for a medium described by the linearised Landau-Lifshitz equation, subject to electromagnetic and ``exchange" boundary conditions. Using perturbation theory, K\&{}S have obtained an explicit dispersion relation for ``spin-waves" in the medium. To wit,
 \begin{equation}\label{dispersion_main}
 \omega_{n} = \sqrt{(\omega_{H} + \alpha \omega_{M} k_{n}^2)(\omega_{H} + \alpha \omega_{M} k_{n}^2 + \omega_{M} F_{nn})}
 \end{equation}
@@ -17,7 +17,7 @@ where
 \begin{equation}
 F_{nn} = P_{nn} + \sin^2{\theta} \left(1 - P_{nn} \left( 1 + \cos^2{\phi}\right) + \omega_{M} \frac{P_{nn}(1-P_{nn})\sin^2{\phi}}{(\omega_{H} + \alpha \omega_{M} k_{n}^2)} \right)
 \end{equation}
-and $k_{n}^2 = k_{\zeta}^2 + \kappa_{n}^2$. K \& S defined $\omega_{H} = \mu_{0} |g| H_{i}$ and $\omega_{M} = \mu_{0} |g| M_{0}$, where $\mu_{0}$ is the permeability of vacuum, $|g|$ is the gyromagnetic ratio, $H_{i}$ is the magnitude of the internal field, and $M_{0}$ is the magnitude of the saturation magnetization. The constant $\alpha$ is the exchange constant.
+and $k_{n}^2 = k_{\zeta}^2 + \kappa_{n}^2$. K\&{}S defined $\omega_{H} = \mu_{0} |g| H_{i}$ and $\omega_{M} = \mu_{0} |g| M_{0}$, where $\mu_{0}$ is the permeability of vacuum, $|g|$ is the gyromagnetic ratio, $H_{i}$ is the magnitude of the internal field, and $M_{0}$ is the magnitude of the saturation magnetization. The constant $\alpha$ is the exchange constant.
 
 We rely on the approximation of totally unpinnned surface spins, for which $P_{nn}$ has the explicit expression
 \begin{equation}
@@ -31,9 +31,9 @@ In this approximation, $\kappa_{n} = \frac{n \pi}{L}$ where $L$ is the film thic
 Moreover, we write $P_{nn}$ in the diagonal approximation, having taken $n = n^{\prime}$. 
 Lastly, we exclusively consider modes with a uniform profile across the film thickness, i.e. everywhere $n = 0$.
 
-K \& S utilize two coordinate systems. The first $(\xi,\eta,\zeta)$ system is oriented such that the $\xi$ direction lies parallel to the film normal vector, if the film is considered as a plane with $L=0$. The upper and lower surfaces of the film lie at $\xi = \frac{L}{2}$ and $\xi = \frac{-L}{2}$, respectively. Furthermore, the direction of spin-wave propagation is oriented along the $\zeta$ direction, i.e. $\vec{k} \parallel \hat{\zeta}$. The second $(x,y,z)$ system is oriented such that the $z$ axis lies parallel to the saturation magnetization $\vec{M}_{0}$ and the internal static magnetic field $\vec{H}_{i}$. The angle $\theta$ measures the rotation of the $z$ axis relative to the $\xi$ axis and takes values in the range $[0,\pi]$. The angle $\phi$ measures the rotation of the $z$ axis relative to the $\zeta$ axis and takes values in the range $[0, 2 \pi]$. If $\theta = \frac{\pi}{2}$, $\vec{M}_{0}$ lies ``in-plane". If then $\phi = 0$, then $\hat{z} \parallel \hat{\zeta}$, i.e. $\vec{M}_{0} \parallel \vec{k}$. If instead $\phi = \frac{\pi}{2}$, then $\hat{z} \parallel \hat{\eta}$, i.e. $\vec{M}_{0} \perp \vec{k}$. Note that, by choosing the orientation of the axes, $\vec{k} = (0,0,k_{\zeta})$ in the $(\xi,\eta,\zeta)$ coordinate system.
+K\&{}S utilize two coordinate systems. The first $(\xi,\eta,\zeta)$ system is oriented such that the $\xi$ direction lies parallel to the film normal vector, if the film is considered as a plane with $L=0$. The upper and lower surfaces of the film lie at $\xi = \frac{L}{2}$ and $\xi = \frac{-L}{2}$, respectively. Furthermore, the direction of spin-wave propagation is oriented along the $\zeta$ direction, i.e. $\vec{k} \parallel \hat{\zeta}$. The second $(x,y,z)$ system is oriented such that the $z$ axis lies parallel to the saturation magnetization $\vec{M}_{0}$ and the internal static magnetic field $\vec{H}_{i}$. The angle $\theta$ measures the rotation of the $z$ axis relative to the $\xi$ axis and takes values in the range $[0,\pi]$. The angle $\phi$ measures the rotation of the $z$ axis relative to the $\zeta$ axis and takes values in the range $[0, 2 \pi]$. If $\theta = \frac{\pi}{2}$, $\vec{M}_{0}$ lies ``in-plane". If then $\phi = 0$, then $\hat{z} \parallel \hat{\zeta}$, i.e. $\vec{M}_{0} \parallel \vec{k}$. If instead $\phi = \frac{\pi}{2}$, then $\hat{z} \parallel \hat{\eta}$, i.e. $\vec{M}_{0} \perp \vec{k}$. Note that, by choosing the orientation of the axes, $\vec{k} = (0,0,k_{\zeta})$ in the $(\xi,\eta,\zeta)$ coordinate system.
 
-We consider the physical quantities $\omega_{H}$, $\omega_{M}$, $\alpha$, and $L$ to be fixed. Then, for ``in-plane" oriented magnetization, i.e. for fixed $\theta = \frac{\pi}{2}$, equation (\ref{dispersion_main}) defines a spin-wave dispersion surface 
+We consider the physical quantities $\omega_{H}$, $\omega_{M}$, $\alpha$, and $L$ to be fixed. Then, for ``in-plane" oriented magnetization, i.e. for fixed $\theta = \frac{\pi}{2}$, equation \eqref{dispersion_main} defines a spin-wave dispersion surface 
 \begin{equation}
 \omega_{n} = \omega_{n} \left(k_{\parallel} , k_{\perp} \right).
 \end{equation} 
@@ -44,9 +44,7 @@ We derive the group velocity,
 \begin{equation}
 \vec{v}_{g} = \nabla_{\vec{k}} \omega_{n} (\vec{k}) = \frac{\partial \omega_{n}}{\partial k_{\zeta}} \hat{k}_{\zeta} + \frac{1}{k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} \hat{\phi}
 \end{equation}
-first in polar coordinates (stationary phase approx?). 
-
-Curvature? Rotation of $\vec{v}_{g}$.
+first in polar coordinates. 
 
 We calculate the derivative $\frac{\partial \omega_{n}}{\partial k_{\zeta}} = \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$ via $\frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$. For notational convenience, we define 
 \begin{align}
@@ -166,17 +164,24 @@ Expression in Cartesian coordinates.
 \subsection{Density of modes/states}
 
 \section{Steering magnetostatic waves}
-Wave sources. Control of real-space wave source distribution. Phase dispersion. Anisotropic dispersion (origin: (bi-)gyrotopy). Possibilities via control of spectrum of excitation. Directional emission for harmonic excitation.
+Wave sources. Control of real-space wave source distribution. Phase dispersion. Anisotropic dispersion (origin: (bi-)gyrotopy). Possibilities via control of spectrum of excitation. Directional emission for harmonic excitation. Validity of convolution as system operator---is magnetic medium under linearized L. L. equation an LTI system?
 
 \subsection{Point source emission pattern}
 
 \begin{thebibliography}{99}
-% example
-% dipolar boundary conditions in magnetostatic regime 
-\bibitem{PRB_sergej_2002}
-K. Yu. Guslienko, S. O. Demokritov, B. Hillebrands, and A. N. Slavin,
-% Effective dipolar boundary conditions for dynamic magnetization in thin magnetic stripes
-Phys. Rev. B., {\bf 66}, 132402 (2002).
+
+% Kalinikos theory, part 1
+\bibitem{K_1980} 
+B. A. Kalinikos,
+Excitation of propagating spin waves in ferromagnetic films.
+{\it IEE Proc. H} {\bf 127}, 4 (1980).
+
+% Kalinikos theory, part 2
+\bibitem{KS_1986}
+B. A. Kalinikos and A. N. Slavin,
+Theory of dipole-exchange spin-wave spectrum for ferromagnetic films with mixed exchange boundary conditions. 
+{\it J. Phys. C} {\bf 19}, 7013 (1986).
+
 \end{thebibliography}
 
 \end{document}

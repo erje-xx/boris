@@ -16,7 +16,7 @@ alpha = 3.1e-16
 phi_selected = 0.0
 theta = 90.0
 W = 0.0013
-k_max = 1000.0
+k_max = 1000000.0
 freq = 4.2
 trans_n = 0.0
 
@@ -91,7 +91,7 @@ print('Calculating dispersion surface')
 # dispersion surface from -k_max to k_max in both
 # direction, with a given step_size
 # Step-size factor
-ssf = 100
+ssf = 10000
 # What follows works, but abomination much?
 c = zeros(( len(range(0, int(k_max + 1), int(k_max/ssf))), len(range(0, int(k_max + 1), int(k_max/ssf))) ))
 #c[::,100] = range(0, int(k_max + 1), 10)
@@ -112,9 +112,22 @@ for i in range(len(kzeta)):
 		c[i,j] = omega(kzeta[i,j],phi[i,j],Ms,H,L,gamma,alpha,theta,trans_n)
 plt.subplot(223)
 plt.imshow(c[::-1,:])
+plt.contour(c[::-1,:])
 print('Done calculating dispersion surface!')
 
 plt.subplot(224)
-plt.contour(c[::-1,:])
+print('Calculating slowness surface...')
+flip = c[::-1,:].copy()
+freq = 3.66*10**9
+epsilon = 0.01*10**9
+print(min(flip.flat))
+print(max(flip.flat))
+for i in range(len(flip)):
+	for j in range(len(flip[i])):
+		if flip[i,j] < (freq - epsilon) or flip[i,j] > (freq + epsilon):
+			#print(flip[i,j])
+			flip[i,j] = 0
+plt.imshow(abs(fft.ifftshift(fft.ifft2(flip))))
+print('Done calculating slowness surface!')
 
 plt.show()
