@@ -143,7 +143,7 @@ Note the derivative of $k_{n}$ with respect to $k_{\zeta}$,
 Now, we calculate $\frac{\partial^2 \omega_{n}}{\partial \phi^2}$,
 \begin{align}
 \frac{\partial^2 \omega_{n}}{\partial \phi^2} &= \frac{1}{2 \omega_{n}} \frac{\partial^2 \omega_{n}^2}{\partial \phi^2} - \frac{1}{\omega_{n}} \left(\frac{\partial \omega_{n}}{\partial \phi}\right)^2 \\
-\frac{\partial^2 \omega_{n}}{\partial \phi^2} &= R \omega_{M} \frac{\partial^2 F_{nn}}{\partial \phi^2} \\
+\frac{\partial^2 \omega_{n}^2}{\partial \phi^2} &= R \omega_{M} \frac{\partial^2 F_{nn}}{\partial \phi^2} \\
 \frac{\partial^2 F_{nn}}{\partial \phi^2} &= 2 \cos{2\phi} \left( P_{nn} \sin^2{\theta} + \frac{\omega_{M} P_{nn} (1-P_{nn}) \sin^2{\theta}}{R} \right).
 \end{align}
 Finally the mixed-derivatives,
@@ -170,11 +170,16 @@ Hence we need
 \begin{align}
 \frac{\partial^2 \omega_{n}}{\partial k_{z} \partial k_{\zeta}} &= \frac{\partial k_{\zeta}}{\partial k_{z}} \frac{\partial^2 \omega_{n}}{\partial k_{\zeta}^2} + \frac{\partial \phi}{\partial k_{z}} \frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi} \\
 \frac{\partial^2 \omega_{n}}{\partial k_{z} \partial \phi} &= \frac{\partial k_{\zeta}}{\partial k_{z}} \frac{\partial^2 \omega_{n}}{\partial k_{\zeta} \partial \phi} + \frac{\partial \phi}{\partial k_{z}} \frac{\partial^2 \omega_{n}}{\partial \phi^2} \\
+\frac{\partial k_{\zeta}}{\partial k_{z}} &= \cos{\phi} \\
+\frac{\partial k_{\zeta}}{\partial k_{y}} &= \sin{\phi} \\
 \frac{\partial^2 k_{\zeta}}{\partial k_{z}^2} &= \frac{\sin^2{\phi}}{k_{\zeta}} \\
 \frac{\partial^2 k_{\zeta}}{\partial k_{y}^2} &= \frac{\cos^2{\phi}}{k_{\zeta}} \\
 \frac{\partial^2 k_{\zeta}}{\partial k_{y} \partial k_{z}} &= \frac{\partial^2 k_{\zeta}}{\partial k_{z} \partial k_{y}} = \frac{-\cos{\phi} \sin{\phi}}{k_{\zeta}} \\
+\frac{\partial \phi}{\partial k_{z}} &= \frac{- \sin{\phi}}{k_{\zeta}} \\
+\frac{\partial \phi}{\partial k_{y}} &= \frac{\cos{\phi}}{k_{\zeta}} \\
 \frac{\partial^2 \phi}{\partial k_{z}^2} &= \frac{\sin{2 \phi}}{k_{\zeta}^2} \\
-\frac{\partial^2 \phi}{\partial k_{y}^2} &= \frac{-\sin{2 \phi}}{k_{\zeta}^2}
+\frac{\partial^2 \phi}{\partial k_{y}^2} &= \frac{-\sin{2 \phi}}{k_{\zeta}^2} \\
+\frac{\partial^2 \phi}{\partial k_{y} \partial k_{z}} &= \frac{\partial^2 \phi}{\partial k_{z} \partial k_{y}} = \frac{1 - 2\cos^2{\phi}}{k_{\zeta}^2}
 \end{align}
 
 
