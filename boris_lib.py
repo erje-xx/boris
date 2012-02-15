@@ -92,15 +92,17 @@ def dwdk(kzeta, phi, Ms, H, L, gamma, alpha, W, theta, k_max, n):
 	dbetadk = dQdk*(2*Q + wm*Fnn) + wm*Q*dFnndk
 	M = wm*math.sin(theta)*math.sin(theta)*Pnn*(1 - Pnn)/Q
 	
-	# Have to multiply by 2pi, since we work with the gyromagnetic ratio
-	# in Hz/Oe...i.e. we work with normal gamma divided by 2pi
-	dwdkzeta = 2*pi*(1/(2*omega))*dbetadk
+	dwdkzeta = (1/(2*omega))*dbetadk
 	# note change due to henning's check, compare with previous results
-	dwdphi = 2*pi*(1/(2*omega))*Q*wm*math.sin(2*phi)*(Pnn*math.sin(theta)*math.sin(theta) + M)
+	dwdphi = (1/(2*omega))*Q*wm*math.sin(2*phi)*(Pnn*math.sin(theta)*math.sin(theta) + M)
 
 	dwdkz = dwdkzeta*(math.cos(phi)) - (1/kzeta)*dwdphi*math.sin(phi)
 	dwdky = dwdkzeta*(math.sin(phi)) + (1/kzeta)*dwdphi*math.cos(phi)
-	return [dwdkz, dwdky, dwdkzeta, dwdphi]
+
+	# Have to multiply by 2pi, since we work with the gyromagnetic ratio
+	# in Hz/Oe...i.e. we work with normal gamma divided by 2pi
+	# This 2pi yields real group velocity
+	return [2*pi*dwdkz, 2*pi*dwdky, 2*pi*dwdkzeta, 2*pi*dwdphi]
 
 # 2nd deriv
 def d2wdk2(kzeta, phi, Ms, H, L, gamma, alpha, W, theta, k_max, n):
@@ -161,10 +163,12 @@ def d2wdk2(kzeta, phi, Ms, H, L, gamma, alpha, W, theta, k_max, n):
 	
 	# Have to multiply by 2pi, since we work with the gyromagnetic ratio
 	# in Hz/Oe...i.e. we work with normal gamma divided by 2pi
-	dwdkzeta = 2*pi*(1/(2*omega))*dbetadk
-	dwdphi = 2*pi*(1/(2*omega))*Q*wm*math.cos(2*phi)*(Pnn*math.sin(theta)*math.sin(theta) + M)
+	dwdkzeta = (1/(2*omega))*dbetadk
+	dwdphi = (1/(2*omega))*Q*wm*math.sin(2*phi)*(Pnn*math.sin(theta)*math.sin(theta) + M)
 
 	dwdkz = dwdkzeta*(math.cos(phi)) - (1/kzeta)*dwdphi*math.sin(phi)
 	dwdky = dwdkzeta*(math.sin(phi)) + (1/kzeta)*dwdphi*math.cos(phi)
+
+	d2wdkzeta2 = (1/(2*omega))*d2w2dkzeta2 - (1/omega)*(dwdkzeta)**2
 	return [dwdkz, dwdky, dwdkzeta, dwdphi]
 

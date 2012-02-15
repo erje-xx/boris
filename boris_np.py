@@ -16,7 +16,7 @@ alpha = 3.1e-16
 phi_selected = 0.0
 theta = 90.0
 W = 0.0013
-k_max = 1000000.0
+k_max = 1000.0
 freq = 4.2
 trans_n = 0.0
 
@@ -118,7 +118,7 @@ print('Done calculating dispersion surface!')
 plt.subplot(224)
 print('Calculating slowness surface...')
 flip = c[::-1,:].copy()
-freq = 3.4*10**9
+freq = 4.0*10**9
 epsilon = 0.01*10**9
 for i in range(len(flip)):
 	for j in range(len(flip[i])):
