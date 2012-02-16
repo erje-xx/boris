@@ -46,6 +46,46 @@ We derive the group velocity,
 \end{equation}
 first in polar coordinates. 
 
+
+\subsection{Magnon effective mass}
+Corpuscular picture, magnons. The magnon effective mass tensor has elements,
+\begin{equation}
+\left(\frac{1}{m}\right)_{\parallel , \perp} = \frac{1}{\hbar} \frac{\partial^2 \omega_{n}}{\partial k_{\parallel} \partial k_{\perp}}.
+\end{equation}
+Note that, besides the factor $\frac{1}{\hbar}$, the magnon effective mass tensor is the Hessian matrix of $\omega_{n} ( k_{\parallel} , k_{\perp} )$.
+
+\subsection{Density of modes/states}
+
+\section{Steering magnetostatic waves}
+Wave sources. Control of real-space wave source distribution. Phase dispersion. Anisotropic dispersion (origin: (bi-)gyrotopy). Possibilities via control of spectrum of excitation. Directional emission for harmonic excitation. Validity of convolution as system operator---is magnetic medium under linearized L. L. equation an LTI system?
+
+\subsection{Point source emission pattern}
+
+\begin{thebibliography}{99}
+
+% Kalinikos theory, part 1
+\bibitem{K_1980} 
+B. A. Kalinikos,
+Excitation of propagating spin waves in ferromagnetic films.
+{\it IEE Proc. H} {\bf 127}, 4 (1980).
+
+% Kalinikos theory, part 2
+\bibitem{KS_1986}
+B. A. Kalinikos and A. N. Slavin,
+Theory of dipole-exchange spin-wave spectrum for ferromagnetic films with mixed exchange boundary conditions. 
+{\it J. Phys. C} {\bf 19}, 7013 (1986).
+
+\end{thebibliography}
+
+
+\appendix
+\section{Appendix A: Group Velocity}
+We derive the group velocity,
+\begin{equation}
+\vec{v}_{g} = \nabla_{\vec{k}} \omega_{n} (\vec{k}) = \frac{\partial \omega_{n}}{\partial k_{\zeta}} \hat{k}_{\zeta} + \frac{1}{k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} \hat{\phi}
+\end{equation}
+first in polar coordinates.
+
 We calculate the derivative $\frac{\partial \omega_{n}}{\partial k_{\zeta}} = \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$ via $\frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$. For notational convenience, we define 
 \begin{align}
 R &= \omega_{H} + \alpha \omega_{M} k_{n}^2 \\
@@ -86,7 +126,7 @@ From the chain rule,
 \frac{\partial \omega_{n}}{\partial k_{y}} &= \frac{\partial \omega_{n}}{\partial k_{\zeta}} \sin{\phi} + \frac{\partial \omega_{n}}{\partial \phi} \left(\frac{\cos{\phi}}{k_{\zeta}}\right).
 \end{align}
 
-\subsection{Magnon effective mass}
+\section{Appendix B: Magnon Effective Mass}
 Corpuscular picture, magnons. The magnon effective mass tensor has elements,
 \begin{equation}
 \left(\frac{1}{m}\right)_{\parallel , \perp} = \frac{1}{\hbar} \frac{\partial^2 \omega_{n}}{\partial k_{\parallel} \partial k_{\perp}}.
@@ -181,30 +221,6 @@ Hence we need
 \frac{\partial^2 \phi}{\partial k_{y}^2} &= \frac{-\sin{2 \phi}}{k_{\zeta}^2} \\
 \frac{\partial^2 \phi}{\partial k_{y} \partial k_{z}} &= \frac{\partial^2 \phi}{\partial k_{z} \partial k_{y}} = \frac{1 - 2\cos^2{\phi}}{k_{\zeta}^2}
 \end{align}
-
-
-\subsection{Density of modes/states}
-
-\section{Steering magnetostatic waves}
-Wave sources. Control of real-space wave source distribution. Phase dispersion. Anisotropic dispersion (origin: (bi-)gyrotopy). Possibilities via control of spectrum of excitation. Directional emission for harmonic excitation. Validity of convolution as system operator---is magnetic medium under linearized L. L. equation an LTI system?
-
-\subsection{Point source emission pattern}
-
-\begin{thebibliography}{99}
-
-% Kalinikos theory, part 1
-\bibitem{K_1980} 
-B. A. Kalinikos,
-Excitation of propagating spin waves in ferromagnetic films.
-{\it IEE Proc. H} {\bf 127}, 4 (1980).
-
-% Kalinikos theory, part 2
-\bibitem{KS_1986}
-B. A. Kalinikos and A. N. Slavin,
-Theory of dipole-exchange spin-wave spectrum for ferromagnetic films with mixed exchange boundary conditions. 
-{\it J. Phys. C} {\bf 19}, 7013 (1986).
-
-\end{thebibliography}
 
 \end{document}
 
