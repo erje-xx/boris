@@ -106,13 +106,15 @@ def dwdk(kzeta, phi, Ms, H, L, gamma, alpha, W, theta, k_max, n):
 
 # 2nd deriv
 def d2wdk2(kzeta, phi, Ms, H, L, gamma, alpha, W, theta, k_max, n):
+	if kzeta == 0:
+		return [ [0 , 0] , [0 , 0] ]
 	pi = math.pi
 	wh = gamma*H
 	wm = gamma*Ms
 
 	kn = math.sqrt(kzeta**2 + (n*pi/L)**2)
 	dkndk = (kzeta/kn)
-	d2kndk = (1/kn) - (kzeta**2/kn**3)
+	d2kndk2 = (1/kn) - (kzeta**2/kn**3)
 
 	dphidky = math.cos(phi)/kzeta
 	dphidkz = -math.sin(phi)/kzeta
@@ -224,9 +226,9 @@ def d2wdk2(kzeta, phi, Ms, H, L, gamma, alpha, W, theta, k_max, n):
 
 	# 2nd derivs to cartesian, conversion factors
 	d2wdkzdkzeta = dkzetadkz*d2wdkzeta2 + dphidkz*d2wdkdphi
-	d2wdkzdphi = dkzetadkz*d2wdkzetadphi + dphidkz*d2wdphi2
+	d2wdkzdphi = dkzetadkz*d2wdkdphi + dphidkz*d2wdphi2
 	d2wdkydkzeta = dkzetadky*d2wdkzeta2 + dphidky*d2wdkdphi
-	d2wdkydphi = dkzetadky*d2wdkzetadphi + dphidky*d2wdphi2
+	d2wdkydphi = dkzetadky*d2wdkdphi + dphidky*d2wdphi2
 	
 	# 2nd derivs Cartesian
 	d2wdkz2 = d2wdkzdkzeta*dkzetadkz + d2wdkzdphi*dphidkz + dwdkzeta*d2kzetadkz2 + dwdphi*d2phidkz2
@@ -234,4 +236,4 @@ def d2wdk2(kzeta, phi, Ms, H, L, gamma, alpha, W, theta, k_max, n):
 	d2wdkydkz = d2wdkzdkzeta*dkzetadky + d2wdkzdphi*dphidky + dwdkzeta*d2kzetadkydkz + dwdphi*d2phidkydkz
 
 	# Can be conveniently reshaped into 2x2 numpy array :)
-	return [d2wdkz2, d2wdkydkz, d2wdkydkz, d2wdky2]
+	return [ [d2wdkz2, d2wdkydkz] , [d2wdkydkz, d2wdky2] ]

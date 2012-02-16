@@ -4,6 +4,7 @@ from numpy import *
 import matplotlib.pyplot as plt
 from boris_lib import omega
 from boris_lib import dwdk
+from boris_lib import d2wdk2
 import math
 
 pi = math.pi
@@ -94,6 +95,7 @@ print('Calculating dispersion surface')
 ssf = 1000
 # What follows works, but abomination much?
 c = zeros(( len(range(0, int(k_max + 1), int(k_max/ssf))), len(range(0, int(k_max + 1), int(k_max/ssf))) ))
+d = zeros(( len(range(0, int(k_max + 1), int(k_max/ssf))), len(range(0, int(k_max + 1), int(k_max/ssf))) ))
 #c[::,100] = range(0, int(k_max + 1), 10)
 
 kperp = zeros(( len(range(0, int(k_max + 1), int(k_max/ssf))), len(range(0, int(k_max + 1), int(k_max/ssf))) ))
@@ -110,9 +112,13 @@ phi = arctan2(kperp,kpara)
 for i in range(len(kzeta)):
 	for j in range(len(kzeta[i])):
 		c[i,j] = omega(kzeta[i,j],phi[i,j],Ms,H,L,gamma,alpha,theta,trans_n)
+		d[i,j] = linalg.det(d2wdk2(kzeta[i,j],phi[i,j],Ms,H,L,gamma,alpha, W, theta, k_max, trans_n))
 plt.subplot(223)
-plt.imshow(c[::-1,:])
-plt.contour(c[::-1,:])
+#plt.imshow(c[::-1,:])
+#plt.contour(c[::-1,:])
+
+plt.imshow(d[::-1,:])
+#plt.contour(d[::-1,:])
 print('Done calculating dispersion surface!')
 
 plt.subplot(224)
