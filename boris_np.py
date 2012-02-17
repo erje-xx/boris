@@ -112,12 +112,12 @@ phi = arctan2(kperp,kpara)
 for i in range(len(kzeta)):
 	for j in range(len(kzeta[i])):
 		c[i,j] = omega(kzeta[i,j],phi[i,j],Ms,H,L,gamma,alpha,theta,trans_n)
-		d[i,j] = linalg.det(d2wdk2(kzeta[i,j],phi[i,j],Ms,H,L,gamma,alpha, W, theta, k_max, trans_n))
+		#d[i,j] = linalg.det(d2wdk2(kzeta[i,j],phi[i,j],Ms,H,L,gamma,alpha, W, theta, k_max, trans_n))
 plt.subplot(223)
-#plt.imshow(c[::-1,:])
-#plt.contour(c[::-1,:])
+plt.imshow(c[::-1,:])
+plt.contour(c[::-1,:])
 
-plt.imshow(d[::-1,:])
+#plt.imshow(d[::-1,:])
 #plt.contour(d[::-1,:])
 print('Done calculating dispersion surface!')
 

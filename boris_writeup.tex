@@ -33,11 +33,19 @@ Lastly, we exclusively consider modes with a uniform profile across the film thi
 
 K\&{}S utilize two coordinate systems. The first $(\xi,\eta,\zeta)$ system is oriented such that the $\xi$ direction lies parallel to the film normal vector, if the film is considered as a plane with $L=0$. The upper and lower surfaces of the film lie at $\xi = \frac{L}{2}$ and $\xi = \frac{-L}{2}$, respectively. Furthermore, the direction of spin-wave propagation is oriented along the $\zeta$ direction, i.e. $\vec{k} \parallel \hat{\zeta}$. The second $(x,y,z)$ system is oriented such that the $z$ axis lies parallel to the saturation magnetization $\vec{M}_{0}$ and the internal static magnetic field $\vec{H}_{i}$. The angle $\theta$ measures the rotation of the $z$ axis relative to the $\xi$ axis and takes values in the range $[0,\pi]$. The angle $\phi$ measures the rotation of the $z$ axis relative to the $\zeta$ axis and takes values in the range $[0, 2 \pi]$. If $\theta = \frac{\pi}{2}$, $\vec{M}_{0}$ lies ``in-plane". If then $\phi = 0$, then $\hat{z} \parallel \hat{\zeta}$, i.e. $\vec{M}_{0} \parallel \vec{k}$. If instead $\phi = \frac{\pi}{2}$, then $\hat{z} \parallel \hat{\eta}$, i.e. $\vec{M}_{0} \perp \vec{k}$. Note that, by choosing the orientation of the axes, $\vec{k} = (0,0,k_{\zeta})$ in the $(\xi,\eta,\zeta)$ coordinate system.
 
-We consider the physical quantities $\omega_{H}$, $\omega_{M}$, $\alpha$, and $L$ to be fixed. Then, for ``in-plane" oriented magnetization, i.e. for fixed $\theta = \frac{\pi}{2}$, equation \eqref{dispersion_main} defines a spin-wave dispersion surface 
-\begin{equation}
-\omega_{n} = \omega_{n} \left(k_{\parallel} , k_{\perp} \right).
-\end{equation} 
-We have written $\left( k_{\parallel}, k_{\perp} \right)$ in place of $\left( k_{z} , k_{y} \right)$ to denote the components of $\vec{k}$ relative to the external applied field.
+We consider the physical quantities $\omega_{H}$, $\omega_{M}$, $\alpha$, and $L$ to be fixed. Then, for ``in-plane" oriented magnetization, i.e. for fixed $\theta = \frac{\pi}{2}$, equation \eqref{dispersion_main} defines a spin-wave dispersion surface $\omega_{n} \left(k_{\parallel} , k_{\perp} \right) = \omega_{n} (\vec{k})$. We have written $\left( k_{\parallel}, k_{\perp} \right)$ in place of $\left( k_{z} , k_{y} \right)$ to denote the components of $\vec{k}$ relative to the internal static magnetic field.
+
+A dispersion relation connects time oscillations $e^{i \omega t}$ to spatial oscillations $e^{i \vec{k} \cdot \vec{r}}$ of wave number $\vec{k} = (\frac{2 \pi}{\lambda_{\parallel}}, \frac{2 \pi}{\lambda_{\perp}})$. The dispersion relation is the function $\omega (\vec{k})$ for which the plane waves $e^{i \vec{k} \cdot \vec{r}} e^{i \omega (\vec{k}) t}$ satisfy the systems of equations.
+
+Suppose we excite magnetostatic waves with a harmonically varying magnetic field of circular frequency $\omega_{ex}$. The spatial profile of the excited magnetostatic waves then arises from waves satisfying 
+\begin{equation}\label{slowness_surface}
+\omega_{n} (\vec{k}) = \omega_{ex}. 
+\end{equation}
+Equation \eqref{slowness_surface} defines a constant frequency contour of the dispersion surface. For harmonic excitation of a non-dissipative system, we may calculate the spatial profile of excited magnetostatic waves by investigating contours of the dispersion surface.
+
+Even with ideally harmonic excitation, dissipation introduces coupling between the eigenmodes of an oscillating system. An external harmonically varying magnetic field excites oscillations not only at circular frequency $\omega_{ex}$, but also within a narrow range $[\omega_{ex} - \frac{\Delta \omega}{2}, \omega_{ex} + \frac{\Delta \omega}{2}]$ whose characteristic width $\Delta \omega$ is proportional to the dissipation of the system. For magnetostatic waves, dissipation is phenomenologically modelled via the Gilbert damping parameter $\alpha$, i.e. $\Delta \omega \propto \alpha$.
+
+With dissipation present, the spatial profile of magnetostatic waves excited by a harmonic magnetic field of frequency $\omega_{ex}$ is not synthesized from a contour of the dispersion surface, but rather from a family of contours on the dispersion surface with frequences in the range $[\omega_{ex} - \frac{\Delta \omega}{2}, \omega_{ex} + \frac{\Delta \omega}{2}]$. The weights, or the amplitudes, $F(\vec{k})$ in the synthesis are inversely proportional to $| \omega_{ex} - \omega_{n} (\vec{k}) |$.
 
 \subsection{Group velocity}
 We derive the group velocity,
@@ -45,16 +53,17 @@ We derive the group velocity,
 \vec{v}_{g} = \nabla_{\vec{k}} \omega_{n} (\vec{k}) = \frac{\partial \omega_{n}}{\partial k_{\zeta}} \hat{k}_{\zeta} + \frac{1}{k_{\zeta}} \frac{\partial \omega_{n}}{\partial \phi} \hat{\phi}
 \end{equation}
 first in polar coordinates. 
-
+Direction of energy propagation parallel to group velocity. Non-collinearity of phase and group velocity. Semi-caustics and caustics.
 
 \subsection{Magnon effective mass}
-Corpuscular picture, magnons. The magnon effective mass tensor has elements,
+Corpuscular picture, magnons. The magnon inverse effective mass tensor has elements,
 \begin{equation}
 \left(\frac{1}{m}\right)_{\parallel , \perp} = \frac{1}{\hbar} \frac{\partial^2 \omega_{n}}{\partial k_{\parallel} \partial k_{\perp}}.
 \end{equation}
-Note that, besides the factor $\frac{1}{\hbar}$, the magnon effective mass tensor is the Hessian matrix of $\omega_{n} ( k_{\parallel} , k_{\perp} )$.
+Note that, besides the factor $\frac{1}{\hbar}$, the magnon inverse effective mass tensor is the Hessian matrix of $\omega_{n} ( k_{\parallel} , k_{\perp} )$.
 
 \subsection{Density of modes/states}
+Caustic direction corresponds to minimum magnon effective mass ($\rightarrow$ 0?).
 
 \section{Steering magnetostatic waves}
 Wave sources. Control of real-space wave source distribution. Phase dispersion. Anisotropic dispersion (origin: (bi-)gyrotopy). Possibilities via control of spectrum of excitation. Directional emission for harmonic excitation. Validity of convolution as system operator---is magnetic medium under linearized L. L. equation an LTI system?
@@ -77,7 +86,6 @@ Theory of dipole-exchange spin-wave spectrum for ferromagnetic films with mixed 
 
 \end{thebibliography}
 
-
 \appendix
 \section{Appendix A: Group Velocity}
 We derive the group velocity,
@@ -89,7 +97,7 @@ first in polar coordinates.
 We calculate the derivative $\frac{\partial \omega_{n}}{\partial k_{\zeta}} = \frac{1}{2 \omega_{n}} \frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$ via $\frac{\partial \omega_{n}^2}{\partial k_{\zeta}}$. For notational convenience, we define 
 \begin{align}
 R &= \omega_{H} + \alpha \omega_{M} k_{n}^2 \\
-S &= \frac{\omega_{M} P_{nn} (1 - P_{nn}) \sin^2{\theta}}{R} \\
+%S &= \frac{\omega_{M} P_{nn} (1 - P_{nn}) \sin^2{\theta}}{R} \\
 E &= \omega_{M} \sin^2{\theta} \sin^2{\phi}.
 \end{align}
 Then, we have
@@ -203,8 +211,8 @@ To write down the Hessian matrix, we convert these results to Cartesian coordina
 \begin{align}
 \frac{\partial^2 \omega_{n}}{\partial k_{z}^2} &= \frac{\partial^2 \omega_{n}}{\partial k_{z} \partial k_{\zeta}} \frac{\partial k_{\zeta}}{\partial k_{z}} + \frac{\partial^2 \omega_{n}}{\partial k_{z} \partial \phi} \frac{\partial \phi}{\partial k_{z}} + \frac{\partial \omega_{n}}{\partial k_{\zeta}} \frac{\partial^2 k_{\zeta}}{\partial k_{z}^2} + \frac{\partial \omega_{n}}{\partial \phi} \frac{\partial^2 \phi}{\partial k_{z}^2} \\
 \frac{\partial^2 \omega_{n}}{\partial k_{y}^2} &= \frac{\partial^2 \omega_{n}}{\partial k_{y} \partial k_{\zeta}} \frac{\partial k_{\zeta}}{\partial k_{y}} + \frac{\partial^2 \omega_{n}}{\partial k_{y} \partial \phi} \frac{\partial \phi}{\partial k_{y}} + \frac{\partial \omega_{n}}{\partial k_{\zeta}} \frac{\partial^2 k_{\zeta}}{\partial k_{y}^2} + \frac{\partial \omega_{n}}{\partial \phi} \frac{\partial^2 \phi}{\partial k_{y}^2} \\
-\frac{\partial^2 \omega_{n}}{\partial k_{y} \partial k_{z}} &= \frac{\partial^2 \omega_{n}}{\partial k_{z} \partial k_{\zeta}} \frac{\partial k_{\zeta}}{\partial k_{y}} + \frac{\partial^2 \omega_{n}}{\partial k_{z} \partial \phi} \frac{\partial \phi}{\partial k_{y}} + \frac{\partial \omega_{n}}{\partial k_{\zeta}} \frac{\partial^2 k_{\zeta}}{\partial k_{z} \partial k_{y}} + \frac{\partial \omega_{n}}{\partial \phi} \frac{\partial^2 \phi}{\partial k_{z} \partial k_{y}} \\
-\frac{\partial^2 \omega_{n}}{\partial k_{y} \partial k_{z}} &= \frac{\partial^2 \omega_{n}}{\partial k_{z} \partial k_{y}}.
+\frac{\partial^2 \omega_{n}}{\partial k_{z} \partial k_{y}} &= \frac{\partial^2 \omega_{n}}{\partial k_{z} \partial k_{\zeta}} \frac{\partial k_{\zeta}}{\partial k_{y}} + \frac{\partial^2 \omega_{n}}{\partial k_{z} \partial \phi} \frac{\partial \phi}{\partial k_{y}} + \frac{\partial \omega_{n}}{\partial k_{\zeta}} \frac{\partial^2 k_{\zeta}}{\partial k_{z} \partial k_{y}} + \frac{\partial \omega_{n}}{\partial \phi} \frac{\partial^2 \phi}{\partial k_{z} \partial k_{y}} \\
+\frac{\partial^2 \omega_{n}}{\partial k_{z} \partial k_{y}} &= \frac{\partial^2 \omega_{n}}{\partial k_{y} \partial k_{z}}.
 \end{align}
 Hence we need
 \begin{align}
@@ -221,6 +229,10 @@ Hence we need
 \frac{\partial^2 \phi}{\partial k_{y}^2} &= \frac{-\sin{2 \phi}}{k_{\zeta}^2} \\
 \frac{\partial^2 \phi}{\partial k_{y} \partial k_{z}} &= \frac{\partial^2 \phi}{\partial k_{z} \partial k_{y}} = \frac{1 - 2\cos^2{\phi}}{k_{\zeta}^2}
 \end{align}
+
+\section{Appendix C: Gyrotopy and Angular Dependence of $\omega_{n} (\vec{k})$}
+
+\section{Appendix D: Linearity of MSW operator}
 
 \end{document}
 
