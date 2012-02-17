@@ -92,7 +92,7 @@ print('Calculating dispersion surface')
 # dispersion surface from -k_max to k_max in both
 # direction, with a given step_size
 # Step-size factor
-ssf = 1000
+ssf = 100
 # What follows works, but abomination much?
 c = zeros(( len(range(0, int(k_max + 1), int(k_max/ssf))), len(range(0, int(k_max + 1), int(k_max/ssf))) ))
 d = zeros(( len(range(0, int(k_max + 1), int(k_max/ssf))), len(range(0, int(k_max + 1), int(k_max/ssf))) ))
@@ -106,7 +106,7 @@ for i in range(len(kpara)):
 for i in range(len(kperp)):
 	kperp[i] = kperp[i] + k_max - testest - k_max/2
 	testest += k_max/ssf
-	#print(rowrow)
+disp_surface_limits = [ kpara.min(), kpara.max(), kperp.min(), kperp.max() ]
 kzeta = sqrt(kperp**2 + kpara**2)
 phi = arctan2(kperp,kpara)
 for i in range(len(kzeta)):
@@ -114,11 +114,14 @@ for i in range(len(kzeta)):
 		c[i,j] = omega(kzeta[i,j],phi[i,j],Ms,H,L,gamma,alpha,theta,trans_n)
 		#d[i,j] = linalg.det(d2wdk2(kzeta[i,j],phi[i,j],Ms,H,L,gamma,alpha, W, theta, k_max, trans_n))
 plt.subplot(223)
-plt.imshow(c[::-1,:])
-plt.contour(c[::-1,:])
+#plt.imshow(c[::-1,:])
+#plt.contour(c[::-1,:])
+plt.title('Dispersion Surface')
+plt.xlabel('kz (1/m)')
+plt.ylabel('ky (1/m)')
+plt.imshow(c[::-1,:], extent = disp_surface_limits )
+plt.contour(c[::-1,:], extent = disp_surface_limits)
 
-#plt.imshow(d[::-1,:])
-#plt.contour(d[::-1,:])
 print('Done calculating dispersion surface!')
 
 plt.subplot(224)
@@ -131,7 +134,9 @@ for i in range(len(flip)):
 		if flip[i,j] < (freq - epsilon) or flip[i,j] > (freq + epsilon):
 			#print(flip[i,j])
 			flip[i,j] = 0
+
 plt.imshow(abs(fft.ifftshift(fft.ifft2(flip)))**2)
 print('Done calculating slowness surface!')
 
+plt.tight_layout()
 plt.show()
