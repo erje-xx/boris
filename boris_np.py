@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
-from numpy import *
+#from numpy import *
+from numpy import pi, deg2rad, meshgrid, sqrt, arctan2, where, fft 
 import matplotlib.pyplot as plt
 from boris_lib import omega, vomega, dwdk, d2wdk2
 
