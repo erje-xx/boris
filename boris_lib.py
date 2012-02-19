@@ -1,7 +1,7 @@
 #import math
 from numpy import sqrt, sin, cos, exp, pi
 
-# omega built for numpy
+# omega rebuilt for numpy
 def vomega(kzeta, phi, mp):
 	Ms, H, L, gamma, alpha, theta, n = mp
 
