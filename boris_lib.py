@@ -1,7 +1,7 @@
-import math
+#import math
 from numpy import sqrt, sin, cos, exp, pi
 
-# omega built for numpy vectorization
+# omega built for numpy
 def vomega(kzeta, phi, mp):
 	Ms, H, L, gamma, alpha, theta, n = mp
 
@@ -38,7 +38,7 @@ def vomega(kzeta, phi, mp):
 
 	return (sqrt(Q*(Q + wm*Fnn)))
 
-# group velocity, numpy vectorization
+# group velocity rebuilt for numpy
 def vdwdk(kzeta, phi, mp):
 	Ms, H, L, gamma, alpha, theta, n = mp
 
@@ -51,7 +51,7 @@ def vdwdk(kzeta, phi, mp):
 	Q = (wh + alpha*wm*kn*kn)
 	dQdk = (2*alpha*wm*kzeta)
 
-	Fn = ((2/(kzeta*L))*(1 - ((-1)**n)*math.exp(-kzeta*L)))
+	Fn = ((2/(kzeta*L))*(1 - ((-1)**n)*exp(-kzeta*L)))
 
 	dFndk_1 = -2/(L*kzeta*kzeta)
 	dFndk_2 = 2*((-1)**n)*exp(-kzeta*L)/(kzeta*kzeta*L)
