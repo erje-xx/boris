@@ -29,7 +29,7 @@ epsilon = epsilon*10**9
 
 # Number of points for dispersion surface & group velocity
 # Corresponds to sample rate in k-space, gridpts_ds
-gridpts_ds = 2000
+gridpts_ds = 1000
 gridpts_vg = 10
 
 #summary figure number
@@ -62,7 +62,7 @@ vd_y = vdwdk(kzeta,phi,mp)[1]
 plt.quiver(kpara, kperp, vd_z, vd_y)
 
 # number of emission patterns
-no_of_ep = 10
+no_of_ep = 20
 ep_freqs= linspace(vo.min(),vo.max(),no_of_ep)
 
 # emission pattern limits
