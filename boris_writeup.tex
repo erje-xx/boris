@@ -72,11 +72,38 @@ Time evolution can be calculated in the linear regime by multiplication of a pha
 
 Wave sources. Control of real-space wave source distribution. The excitation of waves in an unbounded medium supporting spin waves contacted by a wave source is modelled by convolution considering waves excited by point sources at the wavesource/medium boundary. The size and shape of the contact control the efficiency of excitation of spin waves and the type of convolution. Consider the lateral dimensions of the source parallel $a_{\parallel}$ and perpendicular $a_{\perp}$ to the static field. The source is assumed to efficiently excite waves with wavevector components $k_{\parallel} < \frac{\pi}{a_{\parallel}}$ and $k_{\perp} < \frac{\pi}{a_{\perp}}$, i.e. waves with wavelengths greater than the source size are not efficiently excited.
 
-Phase dispersion. Anisotropic dispersion (origin: (bi-)gyrotopy). 
+Phase dispersion. Anisotropic dispersion (origin: (bi-)gyrotopy).
 
-Possibilities via control of spectrum of excitation. Directional emission for harmonic excitation. Convolution between spectrum of excitation field (e.g. harmonic $\rightarrow$ delta function) and slowness surface. 
+Possibilities via control of spectrum of excitation. Directional emission for harmonic excitation. Convolution between spectrum of excitation field (e.g. harmonic $\rightarrow$ delta function) and slowness surface. This convolution is valid, as long as the coupling of the microwave field to the magnetization is constant over the support of the spectrum of microwave field.
+
+% Q1: To what extent can damping be modelled as a convolution? How does one model harmonic excitation exciting a band of waves?
+
+% Q2: Why does the width of the resonance curve correspond to the damping, i.e. decay length, of MSW? Is this measured?
+
+\section{Full rigor}
+The above approach is based on the explicit dispersion relation derived by K\&{}S in a perturbation theory. In reality, one should obtain the magnetostatic (magnetostatic-exchange) Green's function which solves the equations of motion: Maxwell's equations, electrodynamic boundary conditions, and linearized LLG. Showing that the magnetostatic operator is linear guarantees that an analysis on the basis of Fourier analysis and synthesis is applicable. Furthermore, (?) this shows the system operator is convolution. There is the possibility that one can show that MSW are an LTI system.
+
+Then, using the Green's function, arbitrary sources maybe be modeled via convolution of the spectrum of the source structure and the spectrum of the driving field. 
+
+In this approach, non-zero damping introduces a coupling between the eigenmodes, i.e. destroys the orthogonality of the eigenmodes, hindering an expansion of the field into the eigenmodes. Therefore, damping must be accounted for phenomenologically.
 
 \subsection{Point source emission pattern}
+
+\subsection{Smeared point source}
+
+\subsection{Finite wave source}
+
+\subsection{Almost arbitrary driving field}
+
+\subsection{Almost arbitrary driving field and finite wave source}
+
+\subsection{Diffraction grating}
+
+\section{Measuring magnetostatic waves, practical considerations}
+
+\subsection{Sampling, mechanical restrictions}
+
+\subsection{Scattering, optical restrictions}
 
 \begin{thebibliography}{99}
 
@@ -241,6 +268,8 @@ Hence we need
 \section{Appendix C: Gyrotopy and Angular Dependence of $\omega_{n} (\vec{k})$}
 
 \section{Appendix D: Linearity of MSW operator}
+
+\section{Appendix E: Aside, the SHM}
 
 \end{document}
 
