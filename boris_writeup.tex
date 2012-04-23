@@ -8,6 +8,8 @@
 \begin{abstract}
 boris is a python module which calculates the dispersion characteristics of spin waves (SW) in ferromagnetic films based on the perturbation theory of Kalinikos and Slavin (K\&{}S). Additionally, by calculating contours of the dispersion surface and via an inverse Fourier transform, boris calculates the emission pattern of a SW point source contacting a ferromagnetic medium. 
 \end{abstract}
+\section{Introduction}
+These notes address the problem of spin-wave emission in tangentially-magnetized magnetic films. We aim to prov
 \section{Preliminaries}
 K\&{}S \cite{K_1980, KS_1986} have solved Maxwell's equation in the magnetostatic limit for a medium described by the linearised Landau-Lifshitz equation, subject to electromagnetic and ``exchange" boundary conditions. Using perturbation theory, K\&{}S have obtained an explicit dispersion relation for ``spin-waves" in the medium. To wit,
 \begin{equation}\label{dispersion_main}
@@ -15,9 +17,9 @@ K\&{}S \cite{K_1980, KS_1986} have solved Maxwell's equation in the magnetostati
 \end{equation}
 where
 \begin{equation}
-F_{nn} = P_{nn} + \sin^2{\theta} \left(1 - P_{nn} \left( 1 + \cos^2{\phi}\right) + \omega_{M} \frac{P_{nn}(1-P_{nn})\sin^2{\phi}}{(\omega_{H} + \alpha \omega_{M} k_{n}^2)} \right)
+F_{nn} = P_{nn} + \sin^2{\theta} \left(1 - P_{nn} \left( 1 + \cos^2{\phi}\right) + \omega_{M} \frac{P_{nn}(1-P_{nn})\sin^2{\phi}}{(\omega_{H} + \alpha \omega_{M} k_{n}^2)} \right),
 \end{equation}
-and $k_{n}^2 = k_{\zeta}^2 + \kappa_{n}^2$. K\&{}S defined $\omega_{H} = \mu_{0} |g| H_{i}$ and $\omega_{M} = \mu_{0} |g| M_{0}$, where $\mu_{0}$ is the permeability of vacuum, $|g|$ is the gyromagnetic ratio, $H_{i}$ is the magnitude of the internal field, and $M_{0}$ is the magnitude of the saturation magnetization. The constant $\alpha$ is the exchange constant.
+$k_{n}^2 = k_{\zeta}^2 + \kappa_{n}^2$, and $\kappa_{n} = \frac{n \pi}{L}$ where $L$ is the film thickness. K\&{}S defined $\omega_{H} = \mu_{0} |g| H_{i}$ and $\omega_{M} = \mu_{0} |g| M_{0}$, where $\mu_{0}$ is the permeability of vacuum, $|g|$ is the gyromagnetic ratio, $H_{i}$ is the magnitude of the internal field, and $M_{0}$ is the magnitude of the saturation magnetization. The constant $\alpha$ is the exchange constant.
 
 We rely on the approximation of totally unpinnned surface spins, for which $P_{nn}$ has the explicit expression
 \begin{equation}
@@ -27,8 +29,7 @@ whereby
 \begin{equation}
 F_{n} = \frac{2}{k_{\zeta}L} [1 - (-1)^n e^{-k_{\zeta}L}].
 \end{equation}
-In this approximation, $\kappa_{n} = \frac{n \pi}{L}$ where $L$ is the film thickness. 
-Moreover, we write $P_{nn}$ in the diagonal approximation, having taken $n = n^{\prime}$. 
+We write $P_{nn}$ in the diagonal approximation, having taken $n = n^{\prime}$. 
 Lastly, we exclusively consider modes with a uniform profile across the film thickness, i.e. everywhere $n = 0$.
 
 K\&{}S utilize two coordinate systems. The first $(\xi,\eta,\zeta)$ system is oriented such that the $\xi$ direction lies parallel to the film normal vector, if the film is considered as a plane with $L=0$. The upper and lower surfaces of the film lie at $\xi = \frac{L}{2}$ and $\xi = \frac{-L}{2}$, respectively. Furthermore, the direction of spin-wave propagation is oriented along the $\zeta$ direction, i.e. $\vec{k} \parallel \hat{\zeta}$. The second $(x,y,z)$ system is oriented such that the $z$ axis lies parallel to the saturation magnetization $\vec{M}_{0}$ and the internal static magnetic field $\vec{H}_{i}$. The angle $\theta$ measures the rotation of the $z$ axis relative to the $\xi$ axis and takes values in the range $[0,\pi]$. The angle $\phi$ measures the rotation of the $z$ axis relative to the $\zeta$ axis and takes values in the range $[0, 2 \pi]$. If $\theta = \frac{\pi}{2}$, $\vec{M}_{0}$ lies ``in-plane". If then $\phi = 0$, then $\hat{z} \parallel \hat{\zeta}$, i.e. $\vec{M}_{0} \parallel \vec{k}$. If instead $\phi = \frac{\pi}{2}$, then $\hat{z} \parallel \hat{\eta}$, i.e. $\vec{M}_{0} \perp \vec{k}$. Note that, by choosing the orientation of the axes, $\vec{k} = (0,0,k_{\zeta})$ in the $(\xi,\eta,\zeta)$ coordinate system.
@@ -105,7 +106,26 @@ In this approach, non-zero damping introduces a coupling between the eigenmodes,
 
 \subsection{Scattering, optical restrictions}
 
+%\section{\"Uber die Beugung Magnetostaticher Wellen hinaus}
+%
+%
+%
+%
+%
+%
 \begin{thebibliography}{99}
+
+% VS+Texas, experiment
+\bibitem{VS_texas} 
+V. E. Demidov, S. O. Demokritov, D. Birt, B. O'Gorman, M. Tsoi, and X. Li,
+Radiation of spin waves from the open end of a microscopic magnetic-film waveguide.
+{\it Phys. Rev. B} {\bf 80}, 014429 (2009).
+
+% VSS, stno experiment
+\bibitem{VSS_stno} 
+V.E. Demidov, S. Urazhdin and S.O. Demokritov,
+Direct observation and mapping of spin waves emitted by spin-torque nano-oscillators.
+{\it Nature Materials} {\bf 9}, 984-988 (2010).
 
 % Kalinikos theory, part 1
 \bibitem{K_1980} 
@@ -120,7 +140,11 @@ Theory of dipole-exchange spin-wave spectrum for ferromagnetic films with mixed 
 {\it J. Phys. C} {\bf 19}, 7013 (1986).
 
 \end{thebibliography}
-
+%
+%
+%
+%
+%
 \appendix
 \section{Appendix A: Group Velocity}
 We derive the group velocity,
