@@ -9,15 +9,26 @@
 boris is a python module which calculates the dispersion characteristics of spin waves (SW) in ferromagnetic films based on the perturbation theory of Kalinikos and Slavin (K\&{}S). Additionally, by calculating contours of the dispersion surface and via an inverse Fourier transform, boris calculates the emission pattern of a SW point source contacting a ferromagnetic medium. 
 \end{abstract}
 \section{Introduction}
-More than a decade ago \cite{SD_kaiser_2000}, the diffraction of spin-waves in tangentially magnetized yttrium iron garnet (YIG) films was experimentally studied via Brillouin light scattering. Spin-waves were excited in YIG films of moderate thickness, 5--7 $\mu$m, by a microstrip-transducer with an input antenna of width 50 $\mu$m and length 2.5 mm. Linear effects, such as unidirectional excitation of magnetostatic surface waves (MSSW) and angular confinement of energy propagation of backward volume magnetostatic waves (BVMSW) were investigated. Moreover, non-linear effects, such as the self-focusing of a stationary BVMSW beam at a point, as well as space-time self-focusing of a finite-duration (nonstationary) BVMSW pulse were observed. The formation of strongly localized two-dimensional wave packets (``spin-wave bullets") was also observed.
+More than a decade ago \cite{SD_kaiser_2000}, the diffraction of spin-waves in tangentially magnetized yttrium iron garnet (YIG) films was experimentally studied via Brillouin light scattering. 
+Spin-waves were excited in YIG films of moderate thickness, 5--7 $\mu$m, by a microstrip-transducer with an input antenna of width 50 $\mu$m and length 2.5 mm. 
+Linear effects, such as unidirectional excitation of magnetostatic surface waves (MSSW) and angular confinement of energy propagation of backward volume magnetostatic waves (BVMSW) were investigated. 
+Moreover, non-linear effects, such as the self-focusing of a stationary BVMSW beam at a point, as well as space-time self-focusing of a finite-duration (nonstationary) BVMSW pulse were observed. 
+The formation of strongly localized two-dimensional wave packets (``spin-wave bullets") was also observed.
 
-More recently, related studies have been carried out in $\text{Ni}_{81}\text{Fe}_{19}$ films. The radiation of spin-waves from a waveguide, excited by a stripe antenna, into an unbounded $\text{Ni}_{81}\text{Fe}_{19}$ film \cite{VS_texas}, as well as the diffraction of spin-waves from a defect within a waveguide \cite{VS_texas_apl}, were experimentally observed. Finally, the radiation of spin-waves from a spin torque nano-oscillator (STNO) contacting an unbounded $\text{Ni}_{81}\text{Fe}_{19}$ film was experimentally studied \cite{VSS_stno}.
+More recently, related studies have been carried out in $\text{Ni}_{81}\text{Fe}_{19}$ films. 
+The radiation of spin-waves from a waveguide, excited by a stripe antenna, into an unbounded $\text{Ni}_{81}\text{Fe}_{19}$ film \cite{VS_texas}, as well as the diffraction of spin-waves from a defect within a waveguide \cite{VS_texas_apl}, were experimentally observed. 
+Finally, the radiation of spin-waves from a spin torque nano-oscillator (STNO) contacting an unbounded $\text{Ni}_{81}\text{Fe}_{19}$ film was experimentally studied \cite{VSS_stno}.
 
-In particular, the emission of spin-waves from the STNO \cite{VSS_stno} displayed an intriguing directional character, the wave packet being steerable by the direction of the static saturating field. Meanwhile, in YIG, it was shown that the radiation of spin-waves from a one-dimensional wave source, actually also a waveguide contacting a larger film, can excite nondiffractive wave beams \cite{thomas}.
+In particular, the emission of spin-waves from the STNO \cite{VSS_stno} displayed an intriguing directional character, the wave packet being steerable by the direction of the static saturating field. 
+Meanwhile, in YIG, it was shown that the radiation of spin-waves from a one-dimensional wave source, actually also a waveguide contacting a larger film, can excite nondiffractive wave beams \cite{thomas}.
 
-These experiments investigated primarily point defects and wave sources, whereas it is possible to study arbitrarily shaped defects and wave sources, whose emission characteristics may strongly vary from those of points sources. This reduces to the study of convolution integrals of the point source radiation patterns (i.e. the 2D Green's functions of magnetostatic waves).
+These experiments investigated primarily point defects and wave sources, whereas it is possible to study arbitrarily shaped defects and wave sources, whose emission characteristics may strongly vary from those of points sources. 
+This reduces to the study of convolution integrals of the point source radiation patterns (i.e. the 2D Green's functions of magnetostatic waves).
 
-First, we develop an approach based on a dispersion relation derived from a perturbation theory to calculate spin-wave radiation patterns. Then, we turn to the problem of determining the 2D Green's function for non-exchange magnetostatic waves. Next, we find the 2D Green's function for exchange magnetostatic waves. Lastly, we consider approaches to include damping in the calculations.
+First, we develop an approach based on a dispersion relation derived from a perturbation theory to calculate spin-wave radiation patterns. 
+Then, we turn to the problem of determining the 2D Green's function for non-exchange magnetostatic waves. 
+Next, we find the 2D Green's function for exchange magnetostatic waves. 
+Lastly, we consider approaches to include damping in the calculations.
 %
 %
 %
