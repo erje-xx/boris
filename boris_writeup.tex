@@ -15,14 +15,14 @@ Linear effects, such as unidirectional excitation of magnetostatic surface waves
 Moreover, non-linear effects, such as the self-focusing of a stationary BVMSW beam at a point, as well as space-time self-focusing of a finite-duration (nonstationary) BVMSW pulse were observed. 
 The formation of strongly localized two-dimensional wave packets (``spin-wave bullets") was also observed.
 
-More recently, related studies have been carried out in $\text{Ni}_{81}\text{Fe}_{19}$ films. 
+In recent years, related studies have been carried out in $\text{Ni}_{81}\text{Fe}_{19}$ films, for technological reasons. 
 The radiation of spin-waves from a waveguide, excited by a stripe antenna, into an unbounded $\text{Ni}_{81}\text{Fe}_{19}$ film \cite{VS_texas}, as well as the diffraction of spin-waves from a defect within a waveguide \cite{VS_texas_apl}, were experimentally observed. 
 Finally, the radiation of spin-waves from a spin torque nano-oscillator (STNO) contacting an unbounded $\text{Ni}_{81}\text{Fe}_{19}$ film was experimentally studied \cite{VSS_stno}.
 
-In particular, the emission of spin-waves from the STNO \cite{VSS_stno} displayed an intriguing directional character, the wave packet being steerable by the direction of the static saturating field. 
+In particular, the emission of spin-waves from the STNO \cite{VSS_stno} displayed an intriguing directional character; the wave packet was steerable by the direction of the static saturating field. 
 Meanwhile, in YIG, it was shown that the radiation of spin-waves from a one-dimensional wave source, actually also a waveguide contacting a larger film, can excite nondiffractive wave beams \cite{thomas}.
 
-These experiments investigated primarily point defects and wave sources, whereas it is possible to study arbitrarily shaped defects and wave sources, whose emission characteristics may strongly vary from those of points sources. 
+These experiments investigated primarily point defects and wave sources, although it is possible to study arbitrarily shaped defects and wave sources, whose emission characteristics may strongly vary from those of points sources. 
 This reduces to the study of convolution integrals of the point source radiation patterns (i.e. the 2D Green's functions of magnetostatic waves).
 
 First, we develop an approach based on a dispersion relation derived from a perturbation theory to calculate spin-wave radiation patterns. 
@@ -90,27 +90,32 @@ Note that, besides the factor $\frac{1}{\hbar}$, the magnon inverse effective ma
 Caustic direction corresponds to minimum magnon effective mass ($\rightarrow$ 0?).
 
 \section{Steering magnetostatic waves}
-Validity of convolution as system operator---is magnetic medium under linearized L. L. equation an LTI system? Can we show that system of equations must admit a dispersion equation? An explicit dispersion equation?
+Wave sources.
 
-Time evolution can be calculated in the linear regime by multiplication of a phase factor $e^{i \omega t}$ to the Fourier synthesis of the magnetization.
+Phase dispersion. Anisotropic dispersion (origin: (bi-)gyrotopy). Caustics (or semi-caustics).
 
-Wave sources. Control of real-space wave source distribution. The excitation of waves in an unbounded medium supporting spin waves contacted by a wave source is modelled by convolution considering waves excited by point sources at the wavesource/medium boundary. The size and shape of the contact control the efficiency of excitation of spin waves and the type of convolution. Consider the lateral dimensions of the source parallel $a_{\parallel}$ and perpendicular $a_{\perp}$ to the static field. The source is assumed to efficiently excite waves with wavevector components $k_{\parallel} < \frac{\pi}{a_{\parallel}}$ and $k_{\perp} < \frac{\pi}{a_{\perp}}$, i.e. waves with wavelengths greater than the source size are not efficiently excited.
-
-Phase dispersion. Anisotropic dispersion (origin: (bi-)gyrotopy).
-
+\subsection{Real-space wave source patterning}
+Control of real-space wave source distribution. The excitation of waves in an unbounded medium supporting spin waves contacted by a wave source is modelled by convolution considering waves excited by point sources at the wavesource/medium boundary. The size and shape of the contact control the efficiency of excitation of spin waves and the type of convolution. Consider the lateral dimensions of the source parallel $a_{\parallel}$ and perpendicular $a_{\perp}$ to the static field. The source is assumed to efficiently excite waves with wavevector components $k_{\parallel} < \frac{\pi}{a_{\parallel}}$ and $k_{\perp} < \frac{\pi}{a_{\perp}}$, i.e. waves with wavelengths greater than the source size are not efficiently excited.
+\subsection{Tailoring the spectrum of the excitation field}
 Possibilities via control of spectrum of excitation. Directional emission for harmonic excitation. Convolution between spectrum of excitation field (e.g. harmonic $\rightarrow$ delta function) and slowness surface. This convolution is valid, as long as the coupling of the microwave field to the magnetization is constant over the support of the spectrum of microwave field.
-
+\subsection{Time evolution}
+Time evolution can be calculated in the linear regime by multiplication of a phase factor $e^{i \omega t}$ to the Fourier synthesis of the magnetization.
+\subsection{Limits of the perturbative dispersion relation}
+DE waves. Mode hybridization. Transverse modes.
 % Q1: To what extent can damping be modelled as a convolution? How does one model harmonic excitation exciting a band of waves?
 
 % Q2: Why does the width of the resonance curve correspond to the damping, i.e. decay length, of MSW? Is this measured?
 
-\section{Full rigor}
+\section{2D Green's functions for magnetostatic waves}
+Validity of convolution as system operator---is magnetic medium under linearized L. L. equation an LTI system? Can we show that system of equations must admit a dispersion equation? An explicit dispersion equation?
+
 The above approach is based on the explicit dispersion relation derived by K\&{}S in a perturbation theory. In reality, one should obtain the magnetostatic (magnetostatic-exchange) Green's function which solves the equations of motion: Maxwell's equations, electrodynamic boundary conditions, and linearized LLG. Showing that the magnetostatic operator is linear guarantees that an analysis on the basis of Fourier analysis and synthesis is applicable. Furthermore, (?) this shows the system operator is convolution. There is the possibility that one can show that MSW are an LTI system.
 
 Then, using the Green's function, arbitrary sources maybe be modeled via convolution of the spectrum of the source structure and the spectrum of the driving field. 
 
 In this approach, non-zero damping introduces a coupling between the eigenmodes, i.e. destroys the orthogonality of the eigenmodes, hindering an expansion of the field into the eigenmodes. Therefore, damping must be accounted for phenomenologically.
-
+\subsection{System of equations}
+The system of equations consists of Maxwell's equations, electromagnetic boundary conditions, and the linearized Landau-Lifshitz equation describing the medium.
 \subsection{Point source emission pattern}
 
 \subsection{Smeared point source}
